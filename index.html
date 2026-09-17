@@ -1163,6 +1163,126 @@
       100%{opacity:.82; transform:rotate(-7deg) scale(1)}
     }
 
+
+    /* ---------- FINALE JUMPSCARE ---------- */
+    .murder-scare{
+      position:fixed;
+      inset:0;
+      z-index:120;
+      display:none;
+      place-items:center;
+      text-align:center;
+      background:#000;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .murder-scare.active{
+      display:grid;
+      pointer-events:auto;
+      animation:scareStage 4.25s ease forwards;
+    }
+
+    @keyframes scareStage{
+      0%{opacity:0;background:#000}
+      7%{opacity:1;background:#000}
+      14%{background:#7a0014}
+      45%{background:#5e000f}
+      72%{background:#050505}
+      100%{opacity:0;background:#000}
+    }
+
+    .murder-hit,
+    .murder-relax{
+      position:absolute;
+      width:min(900px,88vw);
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+    }
+
+    .murder-hit{
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(3.3rem,12vw,8rem);
+      line-height:.86;
+      color:#f3dfdf;
+      letter-spacing:.015em;
+      text-shadow:
+        0 0 18px rgba(255,255,255,.08),
+        0 0 42px rgba(195,11,45,.42);
+      opacity:0;
+      animation:murderHit 4.25s cubic-bezier(.18,.82,.25,1) forwards;
+    }
+
+    @keyframes murderHit{
+      0%,8%{opacity:0;transform:translate(-50%,-50%) scale(.76)}
+      14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
+      20%,43%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+      53%,100%{opacity:0;transform:translate(-50%,-50%) scale(.985)}
+    }
+
+    .murder-slash{
+      width:min(520px,72vw);
+      height:2px;
+      margin:24px auto 0;
+      background:linear-gradient(90deg,transparent,#f0d7d7,transparent);
+      transform:rotate(-9deg) scaleX(0);
+      transform-origin:center;
+      opacity:.82;
+      animation:slashIn 4.25s ease forwards;
+    }
+
+    @keyframes slashIn{
+      0%,13%{transform:rotate(-9deg) scaleX(0)}
+      18%,44%{transform:rotate(-9deg) scaleX(1)}
+      52%,100%{opacity:0}
+    }
+
+    .murder-relax{
+      opacity:0;
+      color:#e9dcc8;
+      animation:relaxIn 4.25s ease forwards;
+    }
+
+    .murder-relax .small{
+      color:#9f8e78;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.74rem;
+      margin-bottom:10px;
+    }
+
+    .murder-relax .main{
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(2.2rem,7vw,4.6rem);
+      color:#c30b2d;
+      line-height:1;
+    }
+
+    .murder-relax .sub{
+      margin-top:14px;
+      color:#d7c7b2;
+      font-size:clamp(1rem,3vw,1.25rem);
+      font-style:italic;
+    }
+
+    @keyframes relaxIn{
+      0%,54%{opacity:0;transform:translate(-50%,-46%)}
+      65%,88%{opacity:1;transform:translate(-50%,-50%)}
+      100%{opacity:0;transform:translate(-50%,-53%)}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .murder-scare.active{
+        animation-duration:3s !important;
+      }
+      .murder-hit,
+      .murder-relax,
+      .murder-slash{
+        animation-duration:3s !important;
+      }
+    }
+
     @media(max-width:650px){
       .choice-grid{grid-template-columns:1fr}
     }
@@ -1571,6 +1691,24 @@
     </article>
   </main>
 
+
+  <section class="murder-scare" id="murderScare" aria-hidden="true">
+    <div class="murder-hit">
+      YOU'VE BEEN<br>MURDERED.
+      <div class="murder-slash" aria-hidden="true"></div>
+    </div>
+
+    <div class="murder-relax">
+      <div class="small">Not yet.</div>
+      <div class="main">Relax.</div>
+      <div class="sub">The game hasn't even started yet.</div>
+    </div>
+  </section>
+
+  <audio id="murderAudio" preload="auto">
+    <source src="assets/murder.mp3" type="audio/mpeg">
+  </audio>
+
   <audio id="ceremonyAudio" preload="auto"></audio>
   <button class="sound-toggle" id="soundToggle" type="button">Sound: on</button>
 
@@ -1584,10 +1722,15 @@
     const roleAnswer = document.getElementById("roleAnswer");
     const ceremonyAudio = document.getElementById("ceremonyAudio");
     const soundToggle = document.getElementById("soundToggle");
+    const murderScare = document.getElementById("murderScare");
+    const murderAudio = document.getElementById("murderAudio");
+    const endingSection = document.querySelector(".ending");
 
     let opened = false;
     let themeStarted = false;
     let muted = false;
+    let scareArmed = false;
+    let scareTriggered = false;
 
     ceremonyAudio.volume = 0.52;
 
@@ -1849,6 +1992,7 @@
         holdLabel.textContent = "Oath sworn.";
         oathStatus.textContent = "Your summons has been accepted.";
         acceptedStamp.classList.add("show");
+        scareArmed = true;
       }
     }
 
@@ -1893,6 +2037,42 @@
         stopHold();
       }
     });
+
+
+    /* ---------- Finale jumpscare ---------- */
+    function triggerMurderScare(){
+      if(scareTriggered || !scareArmed) return;
+      scareTriggered = true;
+
+      const oldThemeVolume = ceremonyAudio.volume;
+      ceremonyAudio.volume = 0.08;
+
+      murderScare.classList.add("active");
+      murderScare.setAttribute("aria-hidden","false");
+
+      murderAudio.currentTime = 0;
+      murderAudio.volume = 0.78;
+      murderAudio.play().catch(()=>{});
+
+      setTimeout(() => {
+        murderScare.classList.remove("active");
+        murderScare.style.display = "none";
+        murderScare.setAttribute("aria-hidden","true");
+        ceremonyAudio.volume = oldThemeVolume;
+      }, 4300);
+    }
+
+    if(endingSection){
+      const endingObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting && entry.intersectionRatio >= 0.55){
+            triggerMurderScare();
+          }
+        });
+      }, { threshold:[0.55] });
+
+      endingObserver.observe(endingSection);
+    }
 
     const embers = document.getElementById("embers");
     const count = window.innerWidth < 650 ? 20 : 34;
