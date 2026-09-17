@@ -1368,6 +1368,62 @@
       to{opacity:0}
     }
 
+
+    .murder-scene.fading{
+      animation:murderSceneOut .8s ease forwards;
+    }
+
+    @keyframes murderSceneOut{
+      from{opacity:1;filter:blur(0)}
+      to{opacity:0;filter:blur(3px)}
+    }
+
+    .relief-scene.show{
+      display:grid;
+      animation:reliefFade 1s ease forwards;
+    }
+
+    .return-button{
+      opacity:0;
+      transform:translateY(7px);
+      pointer-events:none;
+    }
+
+    .relief-scene.show .return-button{
+      animation:returnReveal .75s ease 1.75s forwards;
+    }
+
+    @keyframes returnReveal{
+      to{
+        opacity:1;
+        transform:translateY(0);
+        pointer-events:auto;
+      }
+    }
+
+    .relief-kicker,
+    .relief-title,
+    .relief-copy{
+      opacity:0;
+      transform:translateY(8px);
+    }
+
+    .relief-scene.show .relief-kicker{
+      animation:reliefText .7s ease .28s forwards;
+    }
+
+    .relief-scene.show .relief-title{
+      animation:reliefText .75s ease .62s forwards;
+    }
+
+    .relief-scene.show .relief-copy{
+      animation:reliefText .75s ease 1.02s forwards;
+    }
+
+    @keyframes reliefText{
+      to{opacity:1;transform:translateY(0)}
+    }
+
     @media(prefers-reduced-motion:reduce){
       .murder-scare.active{
         animation-duration:3s !important;
@@ -1812,12 +1868,7 @@
       </div>
     </div>
   </section>
-
-  <audio id="murderAudio" preload="auto">
-    <source src="assets/murder.mp3" type="audio/mpeg">
-  </audio>
-
-  <audio id="ceremonyAudio" preload="auto"></audio>
+<audio id="ceremonyAudio" preload="auto"></audio>
   <button class="sound-toggle" id="soundToggle" type="button">Sound: on</button>
 
   <script>
@@ -1834,7 +1885,6 @@
     const murderScene = document.getElementById("murderScene");
     const reliefScene = document.getElementById("reliefScene");
     const returnButton = document.getElementById("returnButton");
-    const murderAudio = document.getElementById("murderAudio");
     const endingSection = document.querySelector(".ending");
 
     let opened = false;
@@ -1870,12 +1920,6 @@
         themeStarted = false;
       });
     }
-
-    ceremonyAudio.addEventListener("ended", () => {
-      if(!themeStarted){
-        startTheme();
-      }
-    });
 
     function revealVisibleSections(){
       const reveals = document.querySelectorAll(".reveal");
@@ -2152,70 +2196,115 @@
 
     /* ---------- Cinematic murder finale ---------- */
     let themeResumeTime = 0;
-    let murderFallbackTimer = null;
+    let murderPhase = false;
+    let transitionTimer = null;
 
-    function showReliefScene(){
-      if(murderFallbackTimer){
-        clearTimeout(murderFallbackTimer);
-        murderFallbackTimer = null;
-      }
+    function revealReliefAfterPause(){
+      // Let "MURDERED." sit in silence after the audio ends.
+      transitionTimer = setTimeout(() => {
+        murderScene.classList.add("fading");
 
-      murderScene.style.display = "none";
-      reliefScene.classList.add("show");
+        // Full black beat between the two screens.
+        setTimeout(() => {
+          murderScene.style.display = "none";
+          reliefScene.classList.add("show");
+        }, 900);
+      }, 1450);
     }
 
     function triggerMurderScare(){
       if(scareTriggered || !scareArmed) return;
       scareTriggered = true;
+      murderPhase = true;
 
-      // Stop the theme completely. Resume from this exact point later.
+      // Save exactly where the theme was.
       themeResumeTime = ceremonyAudio.currentTime || 0;
+
+      // Use the SAME audio element that was unlocked by the seal tap.
       ceremonyAudio.pause();
+      ceremonyAudio.loop = false;
+      ceremonyAudio.src = "assets/murder.mp3";
+      ceremonyAudio.currentTime = 0;
+      ceremonyAudio.volume = 0.92;
 
       murderScare.style.display = "grid";
       murderScare.classList.add("active");
       murderScare.setAttribute("aria-hidden","false");
 
+      murderScene.classList.remove("fading");
       murderScene.style.display = "grid";
       reliefScene.classList.remove("show");
       reliefScene.style.display = "";
 
-      murderAudio.currentTime = 0;
-      murderAudio.volume = 0.9;
-
-      const playPromise = murderAudio.play();
+      const playPromise = ceremonyAudio.play();
 
       if(playPromise && typeof playPromise.catch === "function"){
         playPromise.catch(() => {
-          // If the file is missing or blocked, still reveal the punchline shortly.
-          murderFallbackTimer = setTimeout(showReliefScene, 1800);
+          // If the file is missing or the browser still refuses playback,
+          // keep the visual moment instead of skipping immediately.
+          setTimeout(revealReliefAfterPause, 2200);
         });
       }
-
-      // Safety fallback in case the mp3 fails without firing ended.
-      murderFallbackTimer = setTimeout(showReliefScene, 7000);
     }
 
-    murderAudio.addEventListener("ended", () => {
-      showReliefScene();
+    // One audio element handles seal -> theme -> murder.
+    ceremonyAudio.addEventListener("ended", () => {
+      if(murderPhase){
+        murderPhase = false;
+        revealReliefAfterPause();
+        return;
+      }
+
+      // Existing seal behaviour: when seal.mp3 ends, begin the theme.
+      if(!themeStarted){
+        startTheme();
+      }
     });
 
     returnButton.addEventListener("click", () => {
+      if(transitionTimer){
+        clearTimeout(transitionTimer);
+        transitionTimer = null;
+      }
+
       murderScare.classList.add("leaving");
 
       setTimeout(() => {
         murderScare.classList.remove("active","leaving");
         murderScare.style.display = "none";
         murderScare.setAttribute("aria-hidden","true");
+
         murderScene.style.display = "";
+        murderScene.classList.remove("fading");
         reliefScene.classList.remove("show");
 
-        // Resume the Traitors theme only after they leave the scare.
-        if(themeStarted && !muted){
-          ceremonyAudio.currentTime = themeResumeTime;
-          ceremonyAudio.play().catch(()=>{});
+        // Restore the theme using the same audio element.
+        ceremonyAudio.pause();
+        ceremonyAudio.loop = true;
+        ceremonyAudio.src = "assets/traitors.mp3";
+        ceremonyAudio.volume = 0.34;
+
+        const resumeTheme = () => {
+          try{
+            if(Number.isFinite(ceremonyAudio.duration) && ceremonyAudio.duration > 0){
+              ceremonyAudio.currentTime = Math.min(themeResumeTime, Math.max(0, ceremonyAudio.duration - 0.1));
+            }else{
+              ceremonyAudio.currentTime = themeResumeTime;
+            }
+          }catch(e){}
+
+          if(!muted){
+            ceremonyAudio.play().catch(()=>{});
+          }
+        };
+
+        if(ceremonyAudio.readyState >= 1){
+          resumeTheme();
+        }else{
+          ceremonyAudio.addEventListener("loadedmetadata", resumeTheme, {once:true});
+          ceremonyAudio.load();
         }
-      }, 480);
+      }, 520);
     });
 
     if(endingSection){
