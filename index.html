@@ -1164,14 +1164,14 @@
     }
 
 
-    /* ---------- FINALE JUMPSCARE ---------- */
+
+    /* ---------- CINEMATIC MURDER FINALE ---------- */
     .murder-scare{
       position:fixed;
       inset:0;
       z-index:120;
       display:none;
       place-items:center;
-      text-align:center;
       background:#000;
       opacity:0;
       pointer-events:none;
@@ -1180,96 +1180,192 @@
     .murder-scare.active{
       display:grid;
       pointer-events:auto;
-      animation:scareStage 4.25s ease forwards;
+      animation:scareFadeIn .34s ease forwards;
     }
 
-    @keyframes scareStage{
-      0%{opacity:0;background:#000}
-      7%{opacity:1;background:#000}
-      14%{background:#7a0014}
-      45%{background:#5e000f}
-      72%{background:#050505}
-      100%{opacity:0;background:#000}
+    @keyframes scareFadeIn{
+      from{opacity:0}
+      to{opacity:1}
     }
 
-    .murder-hit,
-    .murder-relax{
+    .murder-scene,
+    .relief-scene{
       position:absolute;
-      width:min(900px,88vw);
-      left:50%;
-      top:50%;
-      transform:translate(-50%,-50%);
+      inset:0;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      text-align:center;
     }
 
-    .murder-hit{
+    .murder-scene{
+      opacity:0;
+      animation:murderSceneIn .38s ease .18s forwards;
+    }
+
+    @keyframes murderSceneIn{
+      from{opacity:0}
+      to{opacity:1}
+    }
+
+    .murder-core{
+      width:min(760px,88vw);
+      position:relative;
+    }
+
+    .murder-eyebrow{
+      color:#6e5d52;
+      text-transform:uppercase;
+      letter-spacing:.28em;
+      font-size:.68rem;
+      opacity:0;
+      animation:eyebrowIn .5s ease .38s forwards;
+    }
+
+    @keyframes eyebrowIn{
+      to{opacity:1}
+    }
+
+    .slash-mark{
+      width:min(520px,70vw);
+      height:3px;
+      margin:26px auto 24px;
+      position:relative;
+      overflow:visible;
+      transform:rotate(-8deg);
+    }
+
+    .slash-mark::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(129,0,22,.0) 8%,
+        #7c0015 22%,
+        #d31139 50%,
+        #7c0015 78%,
+        rgba(129,0,22,.0) 92%,
+        transparent 100%
+      );
+      transform:scaleX(0);
+      transform-origin:left center;
+      box-shadow:0 0 18px rgba(195,11,45,.16);
+      animation:slashDraw .42s cubic-bezier(.18,.85,.24,1) .52s forwards;
+    }
+
+    @keyframes slashDraw{
+      to{transform:scaleX(1)}
+    }
+
+    .murder-word{
       font-family:"Grenze Gotisch",serif;
-      font-size:clamp(3.3rem,12vw,8rem);
-      line-height:.86;
-      color:#f3dfdf;
-      letter-spacing:.015em;
+      font-size:clamp(4rem,14vw,9rem);
+      line-height:.78;
+      color:#f0e7dc;
+      letter-spacing:.018em;
+      opacity:0;
+      transform:translateY(10px) scale(.985);
       text-shadow:
-        0 0 18px rgba(255,255,255,.08),
-        0 0 42px rgba(195,11,45,.42);
+        0 0 28px rgba(255,255,255,.035),
+        0 0 42px rgba(195,11,45,.12);
+      animation:murderWordIn .46s cubic-bezier(.18,.85,.24,1) .72s forwards;
+    }
+
+    @keyframes murderWordIn{
+      to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    .murder-subline{
+      margin-top:18px;
+      color:#7f6d61;
+      font-style:italic;
+      font-size:.98rem;
+      letter-spacing:.02em;
       opacity:0;
-      animation:murderHit 4.25s cubic-bezier(.18,.82,.25,1) forwards;
+      animation:sublineIn .5s ease 1.02s forwards;
     }
 
-    @keyframes murderHit{
-      0%,8%{opacity:0;transform:translate(-50%,-50%) scale(.76)}
-      14%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}
-      20%,43%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-      53%,100%{opacity:0;transform:translate(-50%,-50%) scale(.985)}
+    @keyframes sublineIn{
+      to{opacity:1}
     }
 
-    .murder-slash{
-      width:min(520px,72vw);
-      height:2px;
-      margin:24px auto 0;
-      background:linear-gradient(90deg,transparent,#f0d7d7,transparent);
-      transform:rotate(-9deg) scaleX(0);
-      transform-origin:center;
-      opacity:.82;
-      animation:slashIn 4.25s ease forwards;
-    }
-
-    @keyframes slashIn{
-      0%,13%{transform:rotate(-9deg) scaleX(0)}
-      18%,44%{transform:rotate(-9deg) scaleX(1)}
-      52%,100%{opacity:0}
-    }
-
-    .murder-relax{
+    .relief-scene{
+      display:none;
       opacity:0;
-      color:#e9dcc8;
-      animation:relaxIn 4.25s ease forwards;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(125,0,20,.06), transparent 30%),
+        #050505;
     }
 
-    .murder-relax .small{
-      color:#9f8e78;
+    .relief-scene.show{
+      display:grid;
+      animation:reliefFade .62s ease forwards;
+    }
+
+    @keyframes reliefFade{
+      from{opacity:0}
+      to{opacity:1}
+    }
+
+    .relief-core{
+      width:min(720px,88vw);
+    }
+
+    .relief-kicker{
+      color:#8c7866;
       text-transform:uppercase;
       letter-spacing:.22em;
-      font-size:.74rem;
-      margin-bottom:10px;
+      font-size:.72rem;
     }
 
-    .murder-relax .main{
+    .relief-title{
+      margin-top:10px;
       font-family:"Grenze Gotisch",serif;
-      font-size:clamp(2.2rem,7vw,4.6rem);
+      font-size:clamp(3.1rem,10vw,6rem);
+      line-height:.88;
       color:#c30b2d;
-      line-height:1;
     }
 
-    .murder-relax .sub{
-      margin-top:14px;
-      color:#d7c7b2;
-      font-size:clamp(1rem,3vw,1.25rem);
+    .relief-copy{
+      margin:18px auto 0;
+      max-width:520px;
+      color:#d9cbb8;
+      font-size:1.15rem;
+      line-height:1.6;
       font-style:italic;
     }
 
-    @keyframes relaxIn{
-      0%,54%{opacity:0;transform:translate(-50%,-46%)}
-      65%,88%{opacity:1;transform:translate(-50%,-50%)}
-      100%{opacity:0;transform:translate(-50%,-53%)}
+    .return-button{
+      margin-top:28px;
+      padding:12px 22px 11px;
+      border:1px solid rgba(195,11,45,.58);
+      background:rgba(125,0,20,.04);
+      color:#eadcc8;
+      font-family:"IM Fell English",serif;
+      font-style:italic;
+      font-size:1.02rem;
+      cursor:pointer;
+      transition:.22s ease;
+    }
+
+    .return-button:hover{
+      transform:translateY(-2px);
+      border-color:rgba(215,20,58,.9);
+      background:rgba(125,0,20,.09);
+    }
+
+    .murder-scare.leaving{
+      animation:scareFadeOut .5s ease forwards;
+    }
+
+    @keyframes scareFadeOut{
+      from{opacity:1}
+      to{opacity:0}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -1693,15 +1789,27 @@
 
 
   <section class="murder-scare" id="murderScare" aria-hidden="true">
-    <div class="murder-hit">
-      YOU'VE BEEN<br>MURDERED.
-      <div class="murder-slash" aria-hidden="true"></div>
+    <div class="murder-scene" id="murderScene">
+      <div class="murder-core">
+        <div class="murder-eyebrow">A decision has been made</div>
+        <div class="slash-mark" aria-hidden="true"></div>
+        <div class="murder-word">MURDERED.</div>
+        <div class="murder-subline">You should have trusted no one.</div>
+      </div>
     </div>
 
-    <div class="murder-relax">
-      <div class="small">Not yet.</div>
-      <div class="main">Relax.</div>
-      <div class="sub">The game hasn't even started yet.</div>
+    <div class="relief-scene" id="reliefScene">
+      <div class="relief-core">
+        <div class="relief-kicker">Not quite.</div>
+        <div class="relief-title">Relax.</div>
+        <div class="relief-copy">
+          The game hasn’t even started yet.<br>
+          Consider this your first warning.
+        </div>
+        <button class="return-button" id="returnButton" type="button">
+          Return to the Summons
+        </button>
+      </div>
     </div>
   </section>
 
@@ -1723,6 +1831,9 @@
     const ceremonyAudio = document.getElementById("ceremonyAudio");
     const soundToggle = document.getElementById("soundToggle");
     const murderScare = document.getElementById("murderScare");
+    const murderScene = document.getElementById("murderScene");
+    const reliefScene = document.getElementById("reliefScene");
+    const returnButton = document.getElementById("returnButton");
     const murderAudio = document.getElementById("murderAudio");
     const endingSection = document.querySelector(".ending");
 
@@ -2039,28 +2150,73 @@
     });
 
 
-    /* ---------- Finale jumpscare ---------- */
+    /* ---------- Cinematic murder finale ---------- */
+    let themeResumeTime = 0;
+    let murderFallbackTimer = null;
+
+    function showReliefScene(){
+      if(murderFallbackTimer){
+        clearTimeout(murderFallbackTimer);
+        murderFallbackTimer = null;
+      }
+
+      murderScene.style.display = "none";
+      reliefScene.classList.add("show");
+    }
+
     function triggerMurderScare(){
       if(scareTriggered || !scareArmed) return;
       scareTriggered = true;
 
-      const oldThemeVolume = ceremonyAudio.volume;
-      ceremonyAudio.volume = 0.08;
+      // Stop the theme completely. Resume from this exact point later.
+      themeResumeTime = ceremonyAudio.currentTime || 0;
+      ceremonyAudio.pause();
 
+      murderScare.style.display = "grid";
       murderScare.classList.add("active");
       murderScare.setAttribute("aria-hidden","false");
 
+      murderScene.style.display = "grid";
+      reliefScene.classList.remove("show");
+      reliefScene.style.display = "";
+
       murderAudio.currentTime = 0;
-      murderAudio.volume = 0.78;
-      murderAudio.play().catch(()=>{});
+      murderAudio.volume = 0.9;
+
+      const playPromise = murderAudio.play();
+
+      if(playPromise && typeof playPromise.catch === "function"){
+        playPromise.catch(() => {
+          // If the file is missing or blocked, still reveal the punchline shortly.
+          murderFallbackTimer = setTimeout(showReliefScene, 1800);
+        });
+      }
+
+      // Safety fallback in case the mp3 fails without firing ended.
+      murderFallbackTimer = setTimeout(showReliefScene, 7000);
+    }
+
+    murderAudio.addEventListener("ended", () => {
+      showReliefScene();
+    });
+
+    returnButton.addEventListener("click", () => {
+      murderScare.classList.add("leaving");
 
       setTimeout(() => {
-        murderScare.classList.remove("active");
+        murderScare.classList.remove("active","leaving");
         murderScare.style.display = "none";
         murderScare.setAttribute("aria-hidden","true");
-        ceremonyAudio.volume = oldThemeVolume;
-      }, 4300);
-    }
+        murderScene.style.display = "";
+        reliefScene.classList.remove("show");
+
+        // Resume the Traitors theme only after they leave the scare.
+        if(themeStarted && !muted){
+          ceremonyAudio.currentTime = themeResumeTime;
+          ceremonyAudio.play().catch(()=>{});
+        }
+      }, 480);
+    });
 
     if(endingSection){
       const endingObserver = new IntersectionObserver((entries) => {
