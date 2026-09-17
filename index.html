@@ -842,6 +842,331 @@
       font-size:1.03rem;
     }
 
+
+    .omen-enter{
+      position:relative;
+      margin-top:32px;
+      padding:12px 24px 11px;
+      border:1px solid rgba(195,11,45,.66);
+      background:rgba(105,0,18,.06);
+      color:#eadbc7;
+      font-family:"IM Fell English",serif;
+      font-style:italic;
+      font-size:1.08rem;
+      letter-spacing:.025em;
+      cursor:pointer;
+      opacity:0;
+      overflow:hidden;
+      animation:omenText .75s ease 1.55s forwards;
+      transition:transform .22s ease,border-color .22s ease,background .22s ease;
+    }
+
+    .omen-enter:hover{
+      transform:translateY(-2px);
+      border-color:rgba(218,18,55,.95);
+      background:rgba(125,0,22,.11);
+    }
+
+    .omen-enter::before{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:60px;
+      left:-90px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+      transform:skewX(-16deg);
+      animation:sweep 4.5s ease-in-out infinite;
+    }
+
+    .omen.waiting{
+      opacity:1 !important;
+      display:grid !important;
+      animation:none !important;
+    }
+
+    .omen.leaving{
+      animation:omenLeave .65s ease forwards !important;
+    }
+
+    @keyframes omenLeave{
+      from{opacity:1;filter:blur(0)}
+      to{opacity:0;filter:blur(5px)}
+    }
+
+    .sound-toggle{
+      position:fixed;
+      right:14px;
+      bottom:14px;
+      z-index:70;
+      display:none;
+      padding:8px 11px;
+      border:1px solid rgba(154,123,72,.34);
+      background:rgba(5,5,5,.76);
+      color:#bba990;
+      font-family:"IM Fell English",serif;
+      font-size:.88rem;
+      cursor:pointer;
+      backdrop-filter:blur(8px);
+    }
+
+    .sound-toggle.show{display:block}
+
+
+    /* ---------- INTERACTIVE MINI GAMES ---------- */
+    .interactive-card{
+      max-width:740px;
+      margin:24px auto 0;
+      padding:24px 20px;
+      border:1px solid rgba(130,0,21,.38);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(150,0,25,.06), transparent 58%),
+        rgba(255,255,255,.006);
+      text-align:center;
+    }
+
+    .mini-intro{
+      color:#b39f85;
+      font-style:italic;
+      margin:6px auto 0;
+      max-width:560px;
+      line-height:1.6;
+    }
+
+    .choice-grid{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .choice-btn,
+    .quiz-option{
+      position:relative;
+      overflow:hidden;
+      min-height:96px;
+      padding:16px 12px;
+      border:1px solid rgba(154,123,72,.34);
+      background:rgba(125,0,20,.03);
+      color:#eadbc6;
+      font-family:"IM Fell English",serif;
+      cursor:pointer;
+      transition:.22s ease;
+    }
+
+    .choice-btn:hover,
+    .quiz-option:hover{
+      transform:translateY(-3px);
+      border-color:rgba(195,11,45,.62);
+      background:rgba(125,0,20,.07);
+    }
+
+    .choice-symbol{
+      font-family:"Grenze Gotisch",serif;
+      font-size:2rem;
+      color:#cf1035;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    .choice-title{
+      font-size:1.1rem;
+      color:#f0e0cb;
+    }
+
+    .choice-sub{
+      margin-top:4px;
+      color:#a8957f;
+      font-style:italic;
+      font-size:.92rem;
+      line-height:1.4;
+    }
+
+    .result-box{
+      margin-top:16px;
+      padding:16px 14px;
+      border:1px solid rgba(195,11,45,.35);
+      background:rgba(125,0,20,.04);
+      color:#dacbb7;
+      font-style:italic;
+      line-height:1.6;
+      display:none;
+    }
+
+    .result-box.show{display:block}
+
+    .result-box strong{
+      display:block;
+      color:#ef2948;
+      font-weight:400;
+      font-size:1.18rem;
+      margin-bottom:6px;
+    }
+
+    .quiz-wrap{
+      max-width:660px;
+      margin:0 auto;
+    }
+
+    .quiz-question{
+      margin-top:8px;
+      color:#f0e2cf;
+      font-size:1.2rem;
+      line-height:1.5;
+    }
+
+    .quiz-progress{
+      margin-top:6px;
+      color:#8f7d67;
+      font-size:.9rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .quiz-options{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+    }
+
+    .quiz-option{
+      text-align:left;
+      min-height:auto;
+      font-size:1rem;
+      line-height:1.45;
+    }
+
+    .quiz-result{
+      margin-top:18px;
+      padding:18px 16px;
+      border:1px solid rgba(195,11,45,.38);
+      background:rgba(125,0,20,.05);
+      display:none;
+    }
+
+    .quiz-result.show{display:block}
+
+    .quiz-type{
+      font-family:"Grenze Gotisch",serif;
+      font-size:2rem;
+      color:#d50f36;
+      margin-bottom:5px;
+      line-height:1;
+    }
+
+    .quiz-copy{
+      color:#d8c8b4;
+      font-style:italic;
+      line-height:1.6;
+    }
+
+    .quiz-restart{
+      margin-top:14px;
+      padding:9px 16px;
+      border:1px solid rgba(154,123,72,.34);
+      background:rgba(255,255,255,.02);
+      color:#e3d4bf;
+      font-family:"IM Fell English",serif;
+      cursor:pointer;
+    }
+
+    .oath-card{
+      max-width:700px;
+      margin:24px auto 0;
+      padding:26px 22px;
+      border:1px solid rgba(130,0,21,.38);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(150,0,25,.06), transparent 58%),
+        rgba(255,255,255,.006);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .oath-text{
+      color:#dacbb7;
+      font-style:italic;
+      line-height:1.75;
+      max-width:590px;
+      margin:0 auto 20px;
+    }
+
+    .hold-wrap{
+      max-width:360px;
+      margin:0 auto;
+    }
+
+    .hold-track{
+      height:52px;
+      border:1px solid rgba(154,123,72,.35);
+      background:rgba(255,255,255,.02);
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      user-select:none;
+      -webkit-user-select:none;
+      touch-action:none;
+      cursor:pointer;
+    }
+
+    .hold-fill{
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:0%;
+      background:linear-gradient(90deg, rgba(125,0,20,.45), rgba(207,16,53,.65));
+      transition:width .06s linear;
+    }
+
+    .hold-label{
+      position:relative;
+      z-index:2;
+      color:#f0e2cf;
+      font-style:italic;
+      letter-spacing:.03em;
+    }
+
+    .oath-status{
+      margin-top:12px;
+      min-height:24px;
+      color:#ab977e;
+      font-style:italic;
+    }
+
+    .accepted-stamp{
+      margin:20px auto 0;
+      width:max-content;
+      padding:10px 16px 8px;
+      border:2px solid rgba(198,14,48,.76);
+      color:#c80e30;
+      font-family:"Grenze Gotisch",serif;
+      font-size:1.6rem;
+      letter-spacing:.03em;
+      transform:rotate(-7deg) scale(1.18);
+      opacity:0;
+      display:none;
+      box-shadow:0 0 25px rgba(198,14,48,.08);
+      text-shadow:0 0 12px rgba(198,14,48,.1);
+    }
+
+    .accepted-stamp.show{
+      display:inline-block;
+      animation:stampIn .45s cubic-bezier(.17,.88,.3,1.3) forwards;
+    }
+
+    @keyframes stampIn{
+      0%{opacity:0; transform:rotate(-7deg) scale(1.35)}
+      70%{opacity:.9; transform:rotate(-7deg) scale(.96)}
+      100%{opacity:.82; transform:rotate(-7deg) scale(1)}
+    }
+
+    @media(max-width:650px){
+      .choice-grid{grid-template-columns:1fr}
+    }
+
     @media(max-width:650px){
       .stage{padding:10px}
       .letter{padding-top:54px}
@@ -899,6 +1224,7 @@
       <div class="omen-small">On the night of 26 September</div>
       <div class="omen-main">Trust No One.</div>
       <div class="omen-sub">A game of loyalty, deception and very questionable friendship begins.</div>
+      <button class="omen-enter" id="enterButton" type="button">Enter the Game</button>
     </div>
   </section>
 
@@ -1108,6 +1434,90 @@
 
       <div class="rule reveal"></div>
 
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">Before you enter</div>
+          <h2 class="chapter-title">The First Test</h2>
+        </div>
+
+        <div class="interactive-card">
+          <p class="mini-intro">
+            Choose one. It will not decide your real role, but it may reveal the kind of night you are about to have.
+          </p>
+
+          <div class="choice-grid">
+            <button class="choice-btn" type="button" data-first-test="dagger">
+              <div class="choice-symbol">†</div>
+              <div class="choice-title">The Dagger</div>
+              <div class="choice-sub">For those who act before they ask.</div>
+            </button>
+
+            <button class="choice-btn" type="button" data-first-test="shield">
+              <div class="choice-symbol">♢</div>
+              <div class="choice-title">The Shield</div>
+              <div class="choice-sub">For those who survive first and explain later.</div>
+            </button>
+
+            <button class="choice-btn" type="button" data-first-test="mask">
+              <div class="choice-symbol">◉</div>
+              <div class="choice-title">The Mask</div>
+              <div class="choice-sub">For those who prefer to remain unread.</div>
+            </button>
+          </div>
+
+          <div class="result-box" id="firstTestResult"></div>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">A brief assessment</div>
+          <h2 class="chapter-title">Test Your Instincts</h2>
+        </div>
+
+        <div class="interactive-card quiz-wrap">
+          <div class="quiz-progress" id="quizProgress">Question 1 of 3</div>
+          <div class="quiz-question" id="quizQuestion"></div>
+          <div class="quiz-options" id="quizOptions"></div>
+
+          <div class="quiz-result" id="quizResult">
+            <div class="quiz-type" id="quizType"></div>
+            <div class="quiz-copy" id="quizCopy"></div>
+            <button class="quiz-restart" id="quizRestart" type="button">Retake the Test</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">One ceremonial requirement</div>
+          <h2 class="chapter-title">Swear the Oath</h2>
+        </div>
+
+        <div class="oath-card">
+          <p class="oath-text">
+            I solemnly swear to lie when necessary, accuse irresponsibly, defend myself loudly,
+            and take every betrayal personally.
+          </p>
+
+          <div class="hold-wrap">
+            <div class="hold-track" id="holdTrack" role="button" tabindex="0" aria-label="Press and hold to accept the summons">
+              <div class="hold-fill" id="holdFill"></div>
+              <div class="hold-label" id="holdLabel">Press and hold to accept the summons</div>
+            </div>
+            <div class="oath-status" id="oathStatus">Hold for 2 seconds.</div>
+          </div>
+
+          <div class="accepted-stamp" id="acceptedStamp">SUMMONS ACCEPTED</div>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
       <section class="reveal role-wrap">
         <div class="chapter">
           <div class="chapter-kicker">One final matter</div>
@@ -1161,14 +1571,57 @@
     </article>
   </main>
 
+  <audio id="ceremonyAudio" preload="auto"></audio>
+  <button class="sound-toggle" id="soundToggle" type="button">Sound: on</button>
+
   <script>
     const sealButton = document.getElementById("sealButton");
     const opening = document.getElementById("opening");
     const omen = document.getElementById("omen");
+    const enterButton = document.getElementById("enterButton");
     const stage = document.getElementById("stage");
     const roleButton = document.getElementById("roleButton");
     const roleAnswer = document.getElementById("roleAnswer");
+    const ceremonyAudio = document.getElementById("ceremonyAudio");
+    const soundToggle = document.getElementById("soundToggle");
+
     let opened = false;
+    let themeStarted = false;
+    let muted = false;
+
+    ceremonyAudio.volume = 0.52;
+
+    function startSealAudio(){
+      themeStarted = false;
+      ceremonyAudio.loop = false;
+      ceremonyAudio.src = "assets/seal.mp3";
+      ceremonyAudio.currentTime = 0;
+
+      ceremonyAudio.play().then(() => {
+        soundToggle.classList.add("show");
+      }).catch(() => {});
+    }
+
+    function startTheme(){
+      if(themeStarted) return;
+      themeStarted = true;
+      ceremonyAudio.loop = true;
+      ceremonyAudio.src = "assets/traitors.mp3";
+      ceremonyAudio.currentTime = 0;
+      ceremonyAudio.volume = 0.34;
+
+      ceremonyAudio.play().then(() => {
+        soundToggle.classList.add("show");
+      }).catch(() => {
+        themeStarted = false;
+      });
+    }
+
+    ceremonyAudio.addEventListener("ended", () => {
+      if(!themeStarted){
+        startTheme();
+      }
+    });
 
     function revealVisibleSections(){
       const reveals = document.querySelectorAll(".reveal");
@@ -1188,6 +1641,7 @@
       if(opened) return;
       opened = true;
 
+      startSealAudio();
       sealButton.classList.add("breaking");
 
       setTimeout(() => opening.classList.add("dismissed"), 420);
@@ -1196,7 +1650,23 @@
         opening.style.display = "none";
         omen.classList.add("show");
         omen.setAttribute("aria-hidden","false");
+
+        setTimeout(() => {
+          omen.classList.remove("show");
+          omen.classList.add("waiting");
+        }, 2850);
       }, 900);
+    }
+
+    function enterGame(){
+      if(!themeStarted){
+        startTheme();
+      }else if(ceremonyAudio.paused && !muted){
+        ceremonyAudio.play().catch(()=>{});
+      }
+
+      omen.classList.remove("waiting");
+      omen.classList.add("leaving");
 
       setTimeout(() => {
         omen.style.display = "none";
@@ -1205,17 +1675,225 @@
         stage.setAttribute("aria-hidden","false");
         window.scrollTo({top:0,behavior:"smooth"});
         revealVisibleSections();
-      }, 3900);
+      }, 620);
     }
 
     sealButton.addEventListener("click", openInvite);
+    enterButton.addEventListener("click", enterGame);
 
     roleButton.addEventListener("click", () => {
       roleAnswer.classList.add("show");
       roleButton.textContent = "Trust no one.";
     });
 
-    // Floating particles
+    soundToggle.addEventListener("click", () => {
+      muted = !muted;
+      ceremonyAudio.muted = muted;
+      soundToggle.textContent = muted ? "Sound: off" : "Sound: on";
+
+      if(!muted && ceremonyAudio.paused){
+        ceremonyAudio.play().catch(()=>{});
+      }
+    });
+
+    /* ---------- Mini Game 1: First Test ---------- */
+    const firstTestReadings = {
+      dagger: {
+        title: "The Dagger Chose You",
+        copy: "You trust your instincts and enjoy acting before anyone can stop you. This will be deeply inconvenient for at least one innocent person."
+      },
+      shield: {
+        title: "The Shield Chose You",
+        copy: "You value survival over noise. Sensible. Unfortunately, people who stay calm under pressure are often accused first."
+      },
+      mask: {
+        title: "The Mask Chose You",
+        copy: "You are difficult to read. Whether this is strategy, natural talent or emotional unavailability remains unclear."
+      }
+    };
+
+    const firstTestButtons = document.querySelectorAll("[data-first-test]");
+    const firstTestResult = document.getElementById("firstTestResult");
+
+    firstTestButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-first-test");
+        const reading = firstTestReadings[key];
+        firstTestButtons.forEach(b => b.style.borderColor = "rgba(154,123,72,.34)");
+        btn.style.borderColor = "rgba(195,11,45,.75)";
+        firstTestResult.innerHTML = `<strong>${reading.title}</strong>${reading.copy}`;
+        firstTestResult.classList.add("show");
+      });
+    });
+
+    /* ---------- Mini Game 2: Test Your Instincts ---------- */
+    const quizQuestion = document.getElementById("quizQuestion");
+    const quizOptions = document.getElementById("quizOptions");
+    const quizProgress = document.getElementById("quizProgress");
+    const quizResult = document.getElementById("quizResult");
+    const quizType = document.getElementById("quizType");
+    const quizCopy = document.getElementById("quizCopy");
+    const quizRestart = document.getElementById("quizRestart");
+
+    const quizData = [
+      {
+        q: "At the Circle, your closest friend accuses you first. What do you do?",
+        options: [
+          { text: "Immediately accuse them back with full confidence.", score: { chaos: 2, traitor: 1 } },
+          { text: "Stay calm, ask why, and look for who benefits from the accusation.", score: { innocent: 2 } },
+          { text: "Smile politely and decide that trust was a mistake.", score: { traitor: 1, paranoid: 2 } }
+        ]
+      },
+      {
+        q: "You quietly find a hidden Shield. What now?",
+        options: [
+          { text: "Tell no one. Information is power.", score: { traitor: 2, paranoid: 1 } },
+          { text: "Share it with one ally and create a plan.", score: { innocent: 2 } },
+          { text: "Wave it around dramatically to unnerve everyone.", score: { chaos: 2 } }
+        ]
+      },
+      {
+        q: "Someone is being suspiciously quiet all evening. Your instinct says:",
+        options: [
+          { text: "Suspicious. Silence is strategy.", score: { paranoid: 2, innocent: 1 } },
+          { text: "Maybe they're innocent and overwhelmed.", score: { innocent: 2 } },
+          { text: "Perfect. I can build a case on this instantly.", score: { traitor: 1, chaos: 2 } }
+        ]
+      }
+    ];
+
+    const resultProfiles = {
+      chaos: {
+        title: "Chaos Agent",
+        copy: "You may not know who the Traitors are, but you will absolutely make the situation worse in entertaining ways."
+      },
+      paranoid: {
+        title: "Paranoid Innocent",
+        copy: "You suspect everyone, including people who have only asked for water. Some of your theories will be brilliant. Others will be nonsense."
+      },
+      traitor: {
+        title: "Natural Traitor",
+        copy: "You understand the power of withholding information, weaponising timing and looking innocent while being suspiciously composed."
+      },
+      innocent: {
+        title: "Dangerously Trusting",
+        copy: "You still believe friendship means something. Adorable. Please enjoy the game while that lasts."
+      }
+    };
+
+    let quizIndex = 0;
+    let quizScores = { chaos: 0, paranoid: 0, traitor: 0, innocent: 0 };
+
+    function renderQuiz(){
+      quizResult.classList.remove("show");
+      quizQuestion.style.display = "";
+      quizOptions.style.display = "";
+      const current = quizData[quizIndex];
+      quizProgress.textContent = `Question ${quizIndex + 1} of ${quizData.length}`;
+      quizQuestion.textContent = current.q;
+      quizOptions.innerHTML = "";
+
+      current.options.forEach(opt => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "quiz-option";
+        b.textContent = opt.text;
+        b.addEventListener("click", () => {
+          Object.entries(opt.score).forEach(([k,v]) => quizScores[k] += v);
+          quizIndex++;
+          if(quizIndex < quizData.length){
+            renderQuiz();
+          } else {
+            showQuizResult();
+          }
+        });
+        quizOptions.appendChild(b);
+      });
+    }
+
+    function showQuizResult(){
+      quizQuestion.style.display = "none";
+      quizOptions.style.display = "none";
+      quizProgress.textContent = "Assessment complete";
+      const winner = Object.entries(quizScores).sort((a,b) => b[1] - a[1])[0][0];
+      quizType.textContent = resultProfiles[winner].title;
+      quizCopy.textContent = resultProfiles[winner].copy;
+      quizResult.classList.add("show");
+    }
+
+    quizRestart.addEventListener("click", () => {
+      quizIndex = 0;
+      quizScores = { chaos: 0, paranoid: 0, traitor: 0, innocent: 0 };
+      renderQuiz();
+    });
+
+    renderQuiz();
+
+    /* ---------- Mini Game 3: Swear the Oath ---------- */
+    const holdTrack = document.getElementById("holdTrack");
+    const holdFill = document.getElementById("holdFill");
+    const holdLabel = document.getElementById("holdLabel");
+    const oathStatus = document.getElementById("oathStatus");
+    const acceptedStamp = document.getElementById("acceptedStamp");
+
+    let holdInterval = null;
+    let holdProgress = 0;
+    let oathAccepted = false;
+
+    function updateHold(){
+      holdFill.style.width = `${holdProgress}%`;
+      if(holdProgress >= 100){
+        clearInterval(holdInterval);
+        holdInterval = null;
+        oathAccepted = true;
+        holdLabel.textContent = "Oath sworn.";
+        oathStatus.textContent = "Your summons has been accepted.";
+        acceptedStamp.classList.add("show");
+      }
+    }
+
+    function startHold(){
+      if(oathAccepted || holdInterval) return;
+      oathStatus.textContent = "Hold...";
+      holdInterval = setInterval(() => {
+        holdProgress += 3.4;
+        if(holdProgress > 100) holdProgress = 100;
+        updateHold();
+      }, 60);
+    }
+
+    function stopHold(){
+      if(oathAccepted) return;
+      if(holdInterval){
+        clearInterval(holdInterval);
+        holdInterval = null;
+      }
+      if(holdProgress < 100){
+        holdProgress = Math.max(0, holdProgress - 28);
+        holdFill.style.width = `${holdProgress}%`;
+        oathStatus.textContent = holdProgress > 0 ? "Almost. Hold longer." : "Hold for 2 seconds.";
+      }
+    }
+
+    holdTrack.addEventListener("mousedown", startHold);
+    holdTrack.addEventListener("touchstart", (e) => { e.preventDefault(); startHold(); }, { passive: false });
+    holdTrack.addEventListener("mouseup", stopHold);
+    holdTrack.addEventListener("mouseleave", stopHold);
+    holdTrack.addEventListener("touchend", stopHold);
+    holdTrack.addEventListener("touchcancel", stopHold);
+    holdTrack.addEventListener("keydown", (e) => {
+      if(e.key === " " || e.key === "Enter"){
+        e.preventDefault();
+        startHold();
+      }
+    });
+    holdTrack.addEventListener("keyup", (e) => {
+      if(e.key === " " || e.key === "Enter"){
+        e.preventDefault();
+        stopHold();
+      }
+    });
+
     const embers = document.getElementById("embers");
     const count = window.innerWidth < 650 ? 20 : 34;
 
