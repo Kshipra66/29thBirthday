@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&family=Italianno&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -577,6 +577,357 @@
       filter:blur(.15px);
     }
 
+
+    /* ---------- EXTRA CINEMATIC LAYERS ---------- */
+
+    .vignette{
+      position:fixed;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at center, transparent 48%, rgba(0,0,0,.36) 78%, rgba(0,0,0,.72) 100%);
+    }
+
+    .red-orbit{
+      position:fixed;
+      z-index:1;
+      width:52vw;
+      height:52vw;
+      max-width:760px;
+      max-height:760px;
+      min-width:360px;
+      min-height:360px;
+      left:50%;
+      top:48%;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      pointer-events:none;
+      background:
+        radial-gradient(circle, transparent 0 53%, rgba(175,0,30,.055) 57%, transparent 63%);
+      animation:orbitPulse 7s ease-in-out infinite alternate;
+      filter:blur(.2px);
+    }
+
+    @keyframes orbitPulse{
+      from{opacity:.30; transform:translate(-50%,-50%) scale(.96)}
+      to{opacity:.75; transform:translate(-50%,-50%) scale(1.06)}
+    }
+
+    .ash{
+      position:fixed;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      overflow:hidden;
+    }
+
+    .ash i{
+      position:absolute;
+      width:2px;
+      height:2px;
+      border-radius:50%;
+      background:rgba(230,214,190,.25);
+      box-shadow:0 0 5px rgba(210,185,150,.16);
+      animation:ashFall linear infinite;
+    }
+
+    @keyframes ashFall{
+      from{transform:translate3d(0,-8vh,0); opacity:0}
+      12%{opacity:.6}
+      85%{opacity:.32}
+      to{transform:translate3d(30px,112vh,0); opacity:0}
+    }
+
+    /* Make the opening seal feel like a living wax crest */
+    .opening::before{
+      content:"";
+      position:absolute;
+      width:330px;
+      height:330px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(165,0,28,.12), transparent 68%);
+      animation:sealHalo 3.4s ease-in-out infinite alternate;
+      filter:blur(8px);
+    }
+
+    @keyframes sealHalo{
+      from{opacity:.40; transform:scale(.90)}
+      to{opacity:.86; transform:scale(1.10)}
+    }
+
+    .seal::before{
+      animation:waxEdge 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes waxEdge{
+      from{transform:rotate(-5deg) scale(1)}
+      to{transform:rotate(-2deg) scale(1.018)}
+    }
+
+    .seal-svg{
+      animation:crestBreathe 3.7s ease-in-out infinite alternate;
+    }
+
+    @keyframes crestBreathe{
+      from{filter:drop-shadow(0 0 0 rgba(0,0,0,0)); transform:scale(.99)}
+      to{filter:drop-shadow(0 0 5px rgba(55,0,10,.26)); transform:scale(1.018)}
+    }
+
+    .portrait-stage::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      pointer-events:none;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.90), transparent 24%, transparent 76%, rgba(0,0,0,.90)),
+        linear-gradient(180deg, rgba(0,0,0,.55), transparent 20%, transparent 72%, rgba(0,0,0,.72));
+    }
+
+    .portrait-wrap{
+      clip-path:inset(100% 0 0 0);
+    }
+
+    .portrait-stage.show .portrait-wrap{
+      animation:
+        portraitCurtain 1.05s cubic-bezier(.18,.8,.2,1) forwards,
+        portraitZoom 2.35s ease forwards;
+    }
+
+    @keyframes portraitCurtain{
+      from{clip-path:inset(100% 0 0 0)}
+      to{clip-path:inset(0 0 0 0)}
+    }
+
+    .portrait-wrap img{
+      transform:scale(1.055);
+      animation:portraitFloat 2.35s ease forwards;
+    }
+
+    @keyframes portraitFloat{
+      from{transform:scale(1.055) translateY(6px)}
+      to{transform:scale(1.015) translateY(0)}
+    }
+
+    .portrait-caption::after{
+      content:"";
+      display:block;
+      width:90px;
+      height:1px;
+      margin:12px auto 0;
+      background:linear-gradient(90deg,transparent,#b90b2a,transparent);
+      animation:captionRule 1.7s ease forwards;
+      transform-origin:center;
+    }
+
+    @keyframes captionRule{
+      from{transform:scaleX(0); opacity:0}
+      to{transform:scaleX(1); opacity:1}
+    }
+
+    /* Letter arrives like an unfolded document */
+    .letter{
+      transform-origin:top center;
+    }
+
+    .stage.revealed .letter{
+      animation:letterUnfold 1.15s cubic-bezier(.17,.78,.2,1) both;
+    }
+
+    @keyframes letterUnfold{
+      from{
+        opacity:0;
+        transform:perspective(1100px) rotateX(-7deg) translateY(34px) scale(.985);
+        filter:blur(3px);
+      }
+      to{
+        opacity:1;
+        transform:perspective(1100px) rotateX(0) translateY(0) scale(1);
+        filter:blur(0);
+      }
+    }
+
+    /* stagger main blocks when revealed */
+    .stage.revealed .intro,
+    .stage.revealed .date,
+    .stage.revealed .castle,
+    .stage.revealed .timeline,
+    .stage.revealed .game-copy,
+    .stage.revealed .details-block,
+    .stage.revealed .drinks,
+    .stage.revealed .role-button,
+    .stage.revealed .checkout,
+    .stage.revealed .ending{
+      opacity:0;
+      transform:translateY(12px);
+      animation:sectionRise .7s ease forwards;
+    }
+
+    .stage.revealed .intro{animation-delay:1.00s}
+    .stage.revealed .date{animation-delay:1.10s}
+    .stage.revealed .castle{animation-delay:1.18s}
+    .stage.revealed .timeline{animation-delay:1.28s}
+    .stage.revealed .game-copy:nth-of-type(2){animation-delay:1.42s}
+    .stage.revealed .details-block{animation-delay:1.52s}
+    .stage.revealed .drinks{animation-delay:1.62s}
+    .stage.revealed .game-copy:nth-of-type(4){animation-delay:1.72s}
+    .stage.revealed .role-button{animation-delay:1.82s}
+    .stage.revealed .checkout{animation-delay:1.90s}
+    .stage.revealed .ending{animation-delay:2.02s}
+
+    @keyframes sectionRise{
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    .moment{
+      transition:transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .moment:hover{
+      transform:translateY(-3px);
+      border-color:rgba(194,11,43,.66);
+      background:rgba(125,0,20,.065);
+    }
+
+    .map,
+    .role-button{
+      position:relative;
+      overflow:hidden;
+    }
+
+    .map::before,
+    .role-button::before{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      width:60px;
+      left:-90px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+      transform:skewX(-16deg);
+      animation:buttonSweep 5s ease-in-out infinite;
+    }
+
+    @keyframes buttonSweep{
+      0%,64%{left:-90px}
+      82%,100%{left:125%}
+    }
+
+    /* stronger ending */
+    .ending{
+      position:relative;
+      overflow:hidden;
+      padding-bottom:8px;
+    }
+
+    .ending::before{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      left:50%;
+      bottom:-190px;
+      transform:translateX(-50%);
+      background:radial-gradient(circle,rgba(170,0,28,.16),transparent 67%);
+      animation:endGlow 3.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes endGlow{
+      from{opacity:.36; transform:translateX(-50%) scale(.88)}
+      to{opacity:.80; transform:translateX(-50%) scale(1.07)}
+    }
+
+    .ending-title{
+      position:relative;
+      z-index:2;
+      text-shadow:0 0 22px rgba(194,11,43,.14);
+    }
+
+    /* Red signature */
+    .signature-wrap{
+      position:relative;
+      z-index:2;
+      margin-top:22px;
+      text-align:center;
+    }
+
+    .signature-label{
+      color:#857663;
+      font-size:.80rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      margin-bottom:-2px;
+    }
+
+    .signature{
+      display:inline-block;
+      font-family:"Italianno", cursive;
+      font-size:3.4rem;
+      line-height:1;
+      color:#c60e2e;
+      text-shadow:0 0 14px rgba(198,14,46,.16);
+      transform:rotate(-4deg);
+      position:relative;
+      opacity:0;
+    }
+
+    .stage.revealed .signature{
+      animation:signIn 1.05s ease 2.35s forwards;
+    }
+
+    @keyframes signIn{
+      from{opacity:0; transform:rotate(-4deg) translateY(7px) scale(.97)}
+      to{opacity:1; transform:rotate(-4deg) translateY(0) scale(1)}
+    }
+
+    .signature::after{
+      content:"";
+      position:absolute;
+      left:7%;
+      right:0;
+      bottom:-5px;
+      height:2px;
+      background:linear-gradient(90deg,#9d001c,rgba(198,14,46,.55),transparent);
+      transform:scaleX(0);
+      transform-origin:left;
+    }
+
+    .stage.revealed .signature::after{
+      animation:signatureStroke .85s ease 2.78s forwards;
+    }
+
+    @keyframes signatureStroke{
+      to{transform:scaleX(1)}
+    }
+
+    .seal-stamp-small{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      margin:14px auto 0;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(169,0,28,.62);
+      color:#9f001c;
+      font-family:"Grenze Gotisch",serif;
+      font-size:1.4rem;
+      opacity:0;
+      transform:scale(1.5) rotate(-8deg);
+    }
+
+    .stage.revealed .seal-stamp-small{
+      animation:stampDown .52s cubic-bezier(.17,.88,.3,1.3) 3.05s forwards;
+    }
+
+    @keyframes stampDown{
+      0%{opacity:0; transform:scale(1.5) rotate(-8deg)}
+      70%{opacity:.72; transform:scale(.94) rotate(-8deg)}
+      100%{opacity:.62; transform:scale(1) rotate(-8deg)}
+    }
+
+
     @media(max-width:650px){
       .stage{padding:10px}
       .letter{padding-top:52px}
@@ -599,6 +950,9 @@
 
 <body>
   <div class="ambient"></div>
+  <div class="vignette"></div>
+  <div class="red-orbit"></div>
+  <div class="ash" aria-hidden="true" id="ash"></div>
 
   <!-- First screen: just the seal -->
   <section class="opening" id="opening">
@@ -727,6 +1081,12 @@
         <div class="ending-date">26 September · 2:00 PM</div>
         <div class="ending-title">The Castle Awaits.</div>
         <div class="fingerprint" aria-hidden="true"></div>
+
+        <div class="signature-wrap">
+          <div class="signature-label">By order of</div>
+          <div class="signature">Kshipra Desai</div>
+          <div class="seal-stamp-small">K</div>
+        </div>
       </div>
 
     </article>
@@ -773,6 +1133,23 @@
       roleAnswer.classList.add("show");
       roleButton.textContent = "Trust no one.";
     });
+
+
+    // Floating ash / dust particles
+    const ash = document.getElementById("ash");
+    const particleCount = window.innerWidth < 650 ? 18 : 30;
+
+    for(let i = 0; i < particleCount; i++){
+      const p = document.createElement("i");
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.top = (-10 - Math.random() * 95) + "vh";
+      p.style.animationDuration = (8 + Math.random() * 10) + "s";
+      p.style.animationDelay = (-Math.random() * 14) + "s";
+      p.style.opacity = (0.18 + Math.random() * 0.35).toFixed(2);
+      p.style.transform = `scale(${0.6 + Math.random() * 1.5})`;
+      ash.appendChild(p);
+    }
+
   </script>
 </body>
 </html>
