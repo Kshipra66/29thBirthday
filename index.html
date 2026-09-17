@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#020202" />
   <title>Kshipra's Summons</title>
 
@@ -242,15 +242,15 @@
       opacity:0;
     }
 
-    .omen.show{
+    .omen.open{
       display:grid;
-      animation:omenStage 3.05s ease forwards;
+      opacity:1;
+      animation:omenAppear .65s ease forwards;
     }
 
-    @keyframes omenStage{
-      0%{opacity:0}
-      13%,83%{opacity:1}
-      100%{opacity:0}
+    @keyframes omenAppear{
+      from{opacity:0;filter:blur(4px)}
+      to{opacity:1;filter:blur(0)}
     }
 
     .omen::before,
@@ -880,9 +880,8 @@
     }
 
     .omen.waiting{
-      opacity:1 !important;
-      display:grid !important;
-      animation:none !important;
+      opacity:1;
+      display:grid;
     }
 
     .omen.leaving{
@@ -1035,6 +1034,17 @@
       min-height:auto;
       font-size:1rem;
       line-height:1.45;
+    }
+
+
+    .quiz-option.selected{
+      border-color:rgba(195,11,45,.78);
+      background:rgba(125,0,20,.11);
+    }
+
+    .quiz-option:focus{
+      outline:1px solid rgba(195,11,45,.5);
+      outline-offset:2px;
     }
 
     .quiz-result{
@@ -1424,30 +1434,381 @@
       to{opacity:1;transform:translateY(0)}
     }
 
-    @media(prefers-reduced-motion:reduce){
-      .murder-scare.active{
-        animation-duration:3s !important;
+
+    /* ---------- MOBILE / DEVICE RESPONSIVENESS ---------- */
+    html, body{
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      -webkit-text-size-adjust:100%;
+    }
+
+    body{
+      min-width:0;
+    }
+
+    button, a{
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    button{
+      max-width:100%;
+    }
+
+    .opening,
+    .omen,
+    .murder-scare{
+      min-height:100svh;
+      min-height:100dvh;
+      padding:
+        max(16px, env(safe-area-inset-top))
+        max(14px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(14px, env(safe-area-inset-left));
+    }
+
+    .seal{
+      width:clamp(168px,52vmin,232px);
+      height:clamp(168px,52vmin,232px);
+      flex:0 0 auto;
+    }
+
+    .seal::after{
+      width:calc(100% + 22px);
+      height:calc(100% + 22px);
+    }
+
+    .seal-svg{
+      width:83%;
+      height:83%;
+    }
+
+    .opening::before{
+      width:clamp(260px,78vmin,380px);
+      height:clamp(260px,78vmin,380px);
+    }
+
+    .omen-copy{
+      width:min(720px,92%);
+      margin:auto;
+      padding:18px 0;
+    }
+
+    .omen-main{
+      font-size:clamp(3rem,14vw,6.2rem);
+      overflow-wrap:anywhere;
+    }
+
+    .omen-sub{
+      max-width:560px;
+      margin-left:auto;
+      margin-right:auto;
+      padding:0 4px;
+    }
+
+    .omen-enter{
+      width:min(280px,100%);
+      min-height:48px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .stage{
+      width:100%;
+      padding:
+        max(10px, env(safe-area-inset-top))
+        max(10px, env(safe-area-inset-right))
+        max(16px, env(safe-area-inset-bottom))
+        max(10px, env(safe-area-inset-left));
+    }
+
+    .letter{
+      width:100%;
+      max-width:900px;
+      min-width:0;
+      padding-left:clamp(20px,7vw,78px);
+      padding-right:clamp(20px,7vw,78px);
+    }
+
+    .letter::before{
+      inset:clamp(9px,3vw,18px);
+    }
+
+    h1{
+      font-size:clamp(4rem,18vw,9rem);
+      overflow-wrap:anywhere;
+    }
+
+    .birthday{
+      font-size:clamp(1.8rem,8vw,3.1rem);
+    }
+
+    .intro,
+    .prose,
+    .detail-box p,
+    .oath-text{
+      font-size:clamp(1.02rem,4.5vw,1.24rem);
+    }
+
+    .chapter-title{
+      font-size:clamp(1.9rem,9vw,3rem);
+    }
+
+    .timeline,
+    .omen-grid,
+    .choice-grid{
+      min-width:0;
+    }
+
+    .moment,
+    .omen-card,
+    .interactive-card,
+    .oath-card,
+    .detail-box{
+      min-width:0;
+      overflow-wrap:anywhere;
+    }
+
+    .map,
+    .role-button,
+    .quiz-restart,
+    .return-button{
+      min-height:46px;
+      max-width:100%;
+      white-space:normal;
+    }
+
+    .house-rule{
+      min-width:0;
+    }
+
+    .house-rule p{
+      overflow-wrap:anywhere;
+    }
+
+    .signature{
+      font-size:clamp(2.8rem,14vw,3.7rem);
+      max-width:100%;
+    }
+
+    .ending-date{
+      line-height:1.55;
+      padding:0 6px;
+    }
+
+    .sound-toggle{
+      right:max(10px, env(safe-area-inset-right));
+      bottom:max(10px, env(safe-area-inset-bottom));
+      min-height:40px;
+    }
+
+    .murder-core,
+    .relief-core{
+      width:min(760px,94%);
+      min-width:0;
+    }
+
+    .murder-word{
+      font-size:clamp(3.4rem,18vw,9rem);
+      overflow-wrap:anywhere;
+    }
+
+    .relief-title{
+      font-size:clamp(2.8rem,15vw,6rem);
+    }
+
+    .relief-copy{
+      font-size:clamp(1rem,4.4vw,1.15rem);
+    }
+
+    /* Common phone widths */
+    @media(max-width:720px){
+      .timeline,
+      .omen-grid,
+      .choice-grid{
+        grid-template-columns:1fr;
       }
-      .murder-hit,
-      .murder-relax,
-      .murder-slash{
-        animation-duration:3s !important;
+
+      .letter{
+        padding-top:52px;
+        padding-bottom:52px;
+      }
+
+      .interactive-card,
+      .oath-card,
+      .detail-box{
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .house-rule{
+        grid-template-columns:34px minmax(0,1fr);
+        gap:10px;
       }
     }
 
-    @media(max-width:650px){
-      .choice-grid{grid-template-columns:1fr}
+    /* Smaller iPhones / compact Android */
+    @media(max-width:430px){
+      .opening,
+      .omen,
+      .murder-scare{
+        padding-left:max(12px, env(safe-area-inset-left));
+        padding-right:max(12px, env(safe-area-inset-right));
+      }
+
+      .seal{
+        width:clamp(166px,54vw,194px);
+        height:clamp(166px,54vw,194px);
+      }
+
+      .omen-small,
+      .chapter-kicker,
+      .ending-date{
+        letter-spacing:.14em;
+      }
+
+      .omen-main{
+        font-size:clamp(3rem,16vw,4.5rem);
+      }
+
+      .letter{
+        padding-left:18px;
+        padding-right:18px;
+      }
+
+      h1{
+        font-size:clamp(4rem,20vw,6rem);
+      }
+
+      .rule{
+        margin-top:28px;
+        margin-bottom:28px;
+      }
+
+      .timeline{
+        gap:10px;
+      }
+
+      .choice-btn{
+        min-height:88px;
+      }
+
+      .quiz-option{
+        padding:14px 12px;
+      }
+
+      .hold-track{
+        min-height:54px;
+      }
+
+      .signature{
+        font-size:3rem;
+      }
     }
 
-    @media(max-width:650px){
-      .stage{padding:10px}
-      .letter{padding-top:54px}
-      .timeline,.omen-grid{grid-template-columns:1fr}
-      .seal{width:194px;height:194px}
-      .seal::after{width:214px;height:214px}
-      .seal-svg{width:161px;height:161px}
-      .house-rule{grid-template-columns:36px 1fr;gap:10px}
+    /* 320–360px phones */
+    @media(max-width:360px){
+      .seal{
+        width:164px;
+        height:164px;
+      }
+
+      .seal-text{
+        font-size:8.2px;
+        letter-spacing:1.4px;
+      }
+
+      .letter{
+        padding-left:15px;
+        padding-right:15px;
+      }
+
+      .letter::before{
+        inset:7px;
+      }
+
+      h1{
+        font-size:3.75rem;
+      }
+
+      .birthday{
+        font-size:1.75rem;
+      }
+
+      .chapter-title{
+        font-size:1.9rem;
+      }
+
+      .interactive-card,
+      .oath-card,
+      .detail-box,
+      .moment,
+      .omen-card{
+        padding-left:13px;
+        padding-right:13px;
+      }
+
+      .house-rule{
+        grid-template-columns:30px minmax(0,1fr);
+      }
     }
+
+    /* Short landscape phones */
+    @media(max-height:520px) and (orientation:landscape){
+      .seal{
+        width:150px;
+        height:150px;
+      }
+
+      .opening::before{
+        width:230px;
+        height:230px;
+      }
+
+      .omen-copy{
+        padding:8px 0;
+      }
+
+      .omen-main{
+        font-size:3rem;
+        margin-top:4px;
+      }
+
+      .omen-sub{
+        margin-top:9px;
+      }
+
+      .omen-enter{
+        margin-top:16px;
+      }
+    }
+
+    /* Only apply hover motion where hover genuinely exists */
+    @media(hover:none), (pointer:coarse){
+      .moment:hover,
+      .omen-card:hover,
+      .choice-btn:hover,
+      .quiz-option:hover,
+      .map:hover,
+      .return-button:hover,
+      .omen-enter:hover{
+        transform:none;
+      }
+
+      /* Prevent iPhone/Android sticky-hover from making the next quiz
+         answer appear preselected after a tap. */
+      .quiz-option:hover{
+        border-color:rgba(154,123,72,.34);
+        background:rgba(125,0,20,.03);
+      }
+
+      .quiz-option.selected,
+      .quiz-option.selected:hover{
+        border-color:rgba(195,11,45,.78);
+        background:rgba(125,0,20,.11);
+      }
+    }
+
 
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{
@@ -1946,13 +2307,8 @@
 
       setTimeout(() => {
         opening.style.display = "none";
-        omen.classList.add("show");
+        omen.classList.add("open","waiting");
         omen.setAttribute("aria-hidden","false");
-
-        setTimeout(() => {
-          omen.classList.remove("show");
-          omen.classList.add("waiting");
-        }, 2850);
       }, 900);
     }
 
@@ -1963,7 +2319,7 @@
         ceremonyAudio.play().catch(()=>{});
       }
 
-      omen.classList.remove("waiting");
+      omen.classList.remove("waiting","open");
       omen.classList.add("leaving");
 
       setTimeout(() => {
@@ -2091,19 +2447,37 @@
       quizQuestion.textContent = current.q;
       quizOptions.innerHTML = "";
 
+      /* Every question starts with a completely clean selection state. */
+      if(document.activeElement && typeof document.activeElement.blur === "function"){
+        document.activeElement.blur();
+      }
+
       current.options.forEach(opt => {
         const b = document.createElement("button");
         b.type = "button";
         b.className = "quiz-option";
         b.textContent = opt.text;
         b.addEventListener("click", () => {
+          /* Only the answer actually tapped may show as selected. */
+          document.querySelectorAll(".quiz-option").forEach(btn => {
+            btn.classList.remove("selected");
+            btn.disabled = true;
+          });
+          b.classList.add("selected");
+          b.blur();
+
           Object.entries(opt.score).forEach(([k,v]) => quizScores[k] += v);
           quizIndex++;
-          if(quizIndex < quizData.length){
-            renderQuiz();
-          } else {
-            showQuizResult();
-          }
+
+          /* Small delay lets mobile Safari release its sticky tap/hover state
+             before the next set of buttons occupies the same coordinates. */
+          setTimeout(() => {
+            if(quizIndex < quizData.length){
+              renderQuiz();
+            } else {
+              showQuizResult();
+            }
+          }, 220);
         });
         quizOptions.appendChild(b);
       });
