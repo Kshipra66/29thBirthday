@@ -913,6 +913,35 @@
 
 
     /* ---------- INTERACTIVE MINI GAMES ---------- */
+
+    .interactive-card,
+    .oath-card{
+      border-color:rgba(195,11,45,.58);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(165,0,28,.10), transparent 62%),
+        rgba(125,0,20,.035);
+    }
+
+    .chapter-kicker.game-kicker{
+      color:#c00e31;
+      font-weight:600;
+    }
+
+    .play-badge{
+      display:inline-block;
+      margin:0 auto 10px;
+      padding:5px 9px 4px;
+      border:1px solid rgba(195,11,45,.5);
+      color:#cfaeb5;
+      font-size:.72rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+    }
+
+    .oath-card{
+      box-shadow:inset 0 0 36px rgba(120,0,20,.045);
+    }
+
     .interactive-card{
       max-width:740px;
       margin:24px auto 0;
@@ -1271,7 +1300,8 @@
 
     .murder-word{
       font-family:"Grenze Gotisch",serif;
-      font-size:clamp(4rem,14vw,9rem);
+      font-size:clamp(2.9rem,14vw,8rem);
+      white-space:nowrap;
       line-height:.78;
       color:#f0e7dc;
       letter-spacing:.018em;
@@ -1609,8 +1639,9 @@
     }
 
     .murder-word{
-      font-size:clamp(3.4rem,18vw,9rem);
-      overflow-wrap:anywhere;
+      font-size:clamp(2.9rem,14vw,7rem);
+      white-space:nowrap;
+      overflow-wrap:normal;
     }
 
     .relief-title{
@@ -1856,7 +1887,7 @@
     <div class="omen-copy">
       <div class="omen-small">On the night of 26 September</div>
       <div class="omen-main">Trust No One.</div>
-      <div class="omen-sub">A game of loyalty, deception and very questionable friendship begins.</div>
+      <div class="omen-sub">A game of deception begins.</div>
       <button class="omen-enter" id="enterButton" type="button">Enter the Game</button>
     </div>
   </section>
@@ -1870,8 +1901,7 @@
         <div class="birthday">Kshipra turns 29</div>
 
         <p class="intro">
-          One villa. One night. A room full of people who claim to be your friends.
-          Some of them will be telling the truth.
+          One villa. One night. Some of your friends will be lying.
         </p>
       </header>
 
@@ -1919,62 +1949,38 @@
 
       <section class="reveal">
         <div class="chapter">
-          <div class="chapter-kicker">The Premise</div>
-          <h2 class="chapter-title">Somebody Is Lying</h2>
+          <div class="chapter-kicker">The Game</div>
+          <h2 class="chapter-title">Find the Traitors</h2>
         </div>
 
         <p class="prose">
-          Hidden among the group will be <strong>Traitors</strong>.
-          Everyone else begins as an Innocent. The Traitors know who they are.
-          The Innocents do not. Your job is simple in theory:
-          find them before they remove you from the game.
+          Hidden among you are <strong>Traitors</strong>. Expect Shields, secret powers,
+          murders and banishment. Trust carefully.
         </p>
 
-        <p class="prose" style="margin-top:18px">
-          Your friendships, poker faces and ability to defend extremely suspicious behaviour
-          will all be tested. Alliances are encouraged. Certainty is not.
-        </p>
-      </section>
-
-      <div class="rule reveal"></div>
-
-      <section class="reveal">
-        <div class="chapter">
-          <div class="chapter-kicker">What awaits</div>
-          <h2 class="chapter-title">The Game Has Teeth</h2>
-        </div>
-
-        <div class="omen-grid">
+        <div class="omen-grid" style="margin-top:22px">
           <div class="omen-card">
             <div class="omen-symbol">♢</div>
             <div class="omen-name">Shields</div>
-            <div class="omen-desc">
-              Protection exists. Finding it is another matter.
-            </div>
+            <div class="omen-desc">Protection, if you find it.</div>
           </div>
 
           <div class="omen-card">
             <div class="omen-symbol">†</div>
             <div class="omen-name">Murder</div>
-            <div class="omen-desc">
-              Traitors will choose who disappears from the game.
-            </div>
+            <div class="omen-desc">The Traitors will choose.</div>
           </div>
 
           <div class="omen-card">
             <div class="omen-symbol">✦</div>
-            <div class="omen-name">Secret Powers</div>
-            <div class="omen-desc">
-              Winning the right game may buy you an advantage.
-            </div>
+            <div class="omen-name">Powers</div>
+            <div class="omen-desc">Win them. Use them wisely.</div>
           </div>
 
           <div class="omen-card">
             <div class="omen-symbol">◉</div>
             <div class="omen-name">The Circle</div>
-            <div class="omen-desc">
-              Accuse carefully. Someone will be banished.
-            </div>
+            <div class="omen-desc">Accuse. Vote. Banish.</div>
           </div>
         </div>
       </section>
@@ -1983,99 +1989,14 @@
 
       <section class="reveal">
         <div class="chapter">
-          <div class="chapter-kicker">House Rules</div>
-          <h2 class="chapter-title">Read Before You Enter</h2>
-        </div>
-
-        <div class="house-rules">
-          <div class="house-rule">
-            <p><strong>Your role is yours alone.</strong> Once drawn, do not show it to anyone.</p>
-          </div>
-
-          <div class="house-rule">
-            <p><strong>Trust is a strategy, not a requirement.</strong> Lie, accuse, defend and investigate as needed.</p>
-          </div>
-
-          <div class="house-rule">
-            <p><strong>Dead players tell no tales.</strong> Once removed from the game, you may enjoy the party but not influence the living.</p>
-          </div>
-
-          <div class="house-rule">
-            <p><strong>Nothing is accidental.</strong> A strange note, missing photograph or suspicious object may mean more than it appears.</p>
-          </div>
-
-          <div class="house-rule">
-            <p><strong>At the Circle, speak.</strong> Every vote should come with a name, a reason and ideally some unnecessary drama.</p>
-          </div>
-        </div>
-      </section>
-
-      <div class="rule reveal"></div>
-
-      <section class="reveal">
-        <div class="chapter">
-          <div class="chapter-kicker">The Evening</div>
-          <h2 class="chapter-title">Expect the Unexpected</h2>
-        </div>
-
-        <p class="prose">
-          The evening will move through games, accusations, private missions,
-          secret decisions and the occasional very public betrayal.
-          Some victories will protect you. Some will place a target on your back.
-          Not every threat will announce itself.
-        </p>
-
-        <p class="prose" style="margin-top:18px">
-          There may be hidden Shields somewhere inside the villa.
-          There may be powers worth fighting for.
-          There will definitely be people confidently accusing the wrong person.
-        </p>
-      </section>
-
-      <div class="rule reveal"></div>
-
-      <section class="reveal">
-        <div class="chapter">
-          <div class="chapter-kicker">Appearances Matter</div>
-          <h2 class="chapter-title">Dress Accordingly</h2>
-        </div>
-
-        <div class="detail-box">
-          <div class="big">Elevated Casuals</div>
-          <p>
-            Think villa party, but sharper.<br>
-            Polished enough to look guilty. Comfortable enough to survive the night.
-          </p>
-        </div>
-      </section>
-
-      <div class="rule reveal"></div>
-
-      <section class="reveal">
-        <div class="chapter">
-          <div class="chapter-kicker">For Courage</div>
-          <h2 class="chapter-title">A Note on Drinks</h2>
-        </div>
-
-        <div class="detail-box">
-          <p>
-            Two bottles of tequila will be waiting at the villa.
-            If your loyalties lie elsewhere, bring whatever specific bottle you would rather drink.
-          </p>
-        </div>
-      </section>
-
-      <div class="rule reveal"></div>
-
-      <section class="reveal">
-        <div class="chapter">
-          <div class="chapter-kicker">Before you enter</div>
+          <div class="play-badge">Mini Game 1 of 3</div>
+          <div class="chapter-kicker game-kicker">Play before you continue</div>
           <h2 class="chapter-title">The First Test</h2>
         </div>
 
         <div class="interactive-card">
           <p class="mini-intro">
-            Choose one. It will not decide your real role, but it may reveal the kind of night you are about to have.
+            Choose one. Your omen awaits.
           </p>
 
           <div class="choice-grid">
@@ -2106,7 +2027,8 @@
 
       <section class="reveal">
         <div class="chapter">
-          <div class="chapter-kicker">A brief assessment</div>
+          <div class="play-badge">Mini Game 2 of 3</div>
+          <div class="chapter-kicker game-kicker">Three questions</div>
           <h2 class="chapter-title">Test Your Instincts</h2>
         </div>
 
@@ -2118,7 +2040,7 @@
           <div class="quiz-result" id="quizResult">
             <div class="quiz-type" id="quizType"></div>
             <div class="quiz-copy" id="quizCopy"></div>
-            <button class="quiz-restart" id="quizRestart" type="button">Retake the Test</button>
+            <button class="quiz-restart" id="quizRestart" type="button">Retake</button>
           </div>
         </div>
       </section>
@@ -2127,14 +2049,15 @@
 
       <section class="reveal">
         <div class="chapter">
-          <div class="chapter-kicker">One ceremonial requirement</div>
+          <div class="play-badge">Mini Game 3 of 3</div>
+          <div class="chapter-kicker game-kicker">Required for entry</div>
           <h2 class="chapter-title">Swear the Oath</h2>
         </div>
 
         <div class="oath-card">
           <p class="oath-text">
-            I solemnly swear to lie when necessary, accuse irresponsibly, defend myself loudly,
-            and take every betrayal personally.
+            I swear to lie when necessary, accuse irresponsibly,
+            defend myself loudly and take betrayal personally.
           </p>
 
           <div class="hold-wrap">
@@ -2158,8 +2081,7 @@
         </div>
 
         <p class="prose">
-          Your identity will remain unknown until the game begins.
-          Only the hosts will know who can be trusted.
+          Your role will be revealed at 5 PM. Only the hosts will know.
         </p>
 
         <button class="role-button" id="roleButton" type="button">
@@ -2171,7 +2093,7 @@
         </div>
 
         <p class="warning">
-          Consider this your only warning: arriving innocent does not guarantee leaving that way.
+          Arriving innocent does not guarantee leaving that way.
         </p>
       </section>
 
@@ -2184,8 +2106,7 @@
         </div>
 
         <p class="prose">
-          Checkout is at <strong>11:00 AM on 27 September.</strong><br>
-          Reputations, accusations and regrettable voting decisions may take longer to recover.
+          Checkout: <strong>11:00 AM on 27 September.</strong>
         </p>
       </section>
 
@@ -2220,8 +2141,7 @@
         <div class="relief-kicker">Not quite.</div>
         <div class="relief-title">Relax.</div>
         <div class="relief-copy">
-          The game hasn’t even started yet.<br>
-          Consider this your first warning.
+          The game hasn’t even started yet.
         </div>
         <button class="return-button" id="returnButton" type="button">
           Return to the Summons
