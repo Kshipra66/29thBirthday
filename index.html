@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#030303" />
-  <title>You Have Been Summoned — Kshipra's 29th</title>
+  <meta name="theme-color" content="#020202" />
+  <title>Kshipra's Summons</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --black:#030303;
-      --paper:#080808;
+      --black:#020202;
+      --paper:#070707;
       --ivory:#e8dcc8;
-      --muted:#a99b88;
-      --blood:#8d0018;
-      --red:#c40c2e;
-      --gold:#90754a;
+      --muted:#a99a87;
+      --blood:#850016;
+      --red:#bf0c2b;
+      --gold:#92764a;
     }
 
     *{box-sizing:border-box}
@@ -27,12 +27,9 @@
     body{
       margin:0;
       overflow-x:hidden;
-      background:
-        radial-gradient(circle at 50% 8%, rgba(141,0,24,.17), transparent 25%),
-        radial-gradient(circle at 50% 100%, rgba(141,0,24,.10), transparent 28%),
-        #020202;
+      background:#020202;
       color:var(--ivory);
-      font-family:"IM Fell English",Georgia,serif;
+      font-family:"IM Fell English", Georgia, serif;
     }
 
     body::before{
@@ -40,75 +37,37 @@
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.13;
-      z-index:99;
+      z-index:50;
+      opacity:.12;
       background-image:
-        repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.055) 0 1px, transparent 1px 3px);
+        repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.05) 0 1px, transparent 1px 3px);
       mix-blend-mode:soft-light;
     }
 
-    .page{
-      min-height:100vh;
+    /* ---------- OPENING SCREEN: ONLY THE SEAL ---------- */
+    .opening{
+      position:fixed;
+      inset:0;
+      z-index:20;
       display:grid;
       place-items:center;
-      padding:20px;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(130,0,20,.08), transparent 18%),
+        #020202;
+      transition:opacity .8s ease, filter .8s ease, transform .8s ease;
     }
 
-    .summons{
-      width:min(760px,100%);
-      transition:.7s ease;
-    }
-
-    .summons.hide{
+    .opening.dismissed{
       opacity:0;
-      transform:translateY(-20px) scale(.98);
       filter:blur(5px);
+      transform:scale(1.025);
       pointer-events:none;
     }
 
-    .envelope{
-      min-height:470px;
-      position:relative;
-      overflow:hidden;
-      display:grid;
-      place-items:center;
-      border:1px solid #1b1b1b;
-      background:
-        linear-gradient(145deg,rgba(255,255,255,.015),transparent 30%),
-        linear-gradient(180deg,#0b0b0b,#050505);
-      box-shadow:
-        0 42px 110px rgba(0,0,0,.82),
-        inset 0 0 110px rgba(100,0,14,.05),
-        0 0 0 1px rgba(144,117,74,.12);
-    }
-
-    .envelope::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      clip-path:polygon(0 0,50% 54%,100% 0);
-      background:linear-gradient(180deg,#111,#070707);
-      border-bottom:1px solid #181818;
-    }
-
-    .seal-area{
-      position:relative;
-      z-index:2;
-      text-align:center;
-      transform:translateY(28px);
-    }
-
-    .opening-line{
-      margin-bottom:28px;
-      color:#9d8d79;
-      font-size:1.2rem;
-      font-style:italic;
-      letter-spacing:.04em;
-    }
-
     .seal{
-      width:126px;
-      height:126px;
+      width:196px;
+      height:196px;
+      padding:0;
       border:0;
       border-radius:50%;
       cursor:pointer;
@@ -116,83 +75,119 @@
       place-items:center;
       position:relative;
       background:
-        radial-gradient(circle at 33% 27%,#dc2a48 0 5%,transparent 6%),
-        radial-gradient(circle,#bd0a2b 0 47%,#8d0018 48% 64%,#5a000f 65% 100%);
+        radial-gradient(circle at 29% 23%, rgba(255,90,115,.50) 0 3.5%, transparent 4%),
+        radial-gradient(circle at 69% 72%, rgba(65,0,12,.38) 0 11%, transparent 12%),
+        radial-gradient(circle at 42% 63%, rgba(255,30,60,.10) 0 10%, transparent 11%),
+        radial-gradient(circle, #c20a2c 0 43%, #99001d 44% 63%, #620010 64% 100%);
       box-shadow:
-        0 14px 28px rgba(0,0,0,.7),
-        inset 0 0 0 4px rgba(255,80,100,.10),
-        inset 0 -13px 19px rgba(50,0,9,.36),
-        0 0 34px rgba(170,0,30,.12);
-      transition:.25s ease;
+        0 24px 52px rgba(0,0,0,.82),
+        0 0 85px rgba(150,0,25,.14),
+        inset 0 0 0 5px rgba(255,95,120,.07),
+        inset 0 -20px 28px rgba(55,0,10,.42),
+        inset 0 14px 18px rgba(255,255,255,.035);
+      transition:transform .25s ease, filter .25s ease;
     }
 
-    .seal:hover{transform:scale(1.035)}
+    .seal:hover{transform:scale(1.035);filter:brightness(1.04)}
+    .seal:active{transform:scale(.985)}
+
+    .seal::before{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      border-radius:46% 54% 49% 51% / 52% 47% 53% 48%;
+      border:3px solid rgba(111,0,18,.56);
+      box-shadow:
+        6px 4px 0 rgba(111,0,18,.20),
+        -5px -3px 0 rgba(170,0,31,.12);
+      transform:rotate(-5deg);
+      pointer-events:none;
+    }
+
     .seal::after{
       content:"";
       position:absolute;
-      width:139px;
-      height:139px;
-      border-radius:49% 51% 48% 52%;
-      border:2px solid rgba(130,0,22,.58);
+      width:215px;
+      height:215px;
+      border-radius:51% 49% 53% 47% / 47% 54% 46% 53%;
+      border:2px solid rgba(126,0,20,.52);
       transform:rotate(8deg);
+      pointer-events:none;
     }
 
     .seal-svg{
-      width:108px;
-      height:108px;
+      width:167px;
+      height:167px;
       overflow:visible;
-      filter: drop-shadow(0 1px 0 rgba(255,255,255,.05));
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,.03));
     }
 
-    .seal-ring{
+    .seal-ring-outer{
       fill:none;
-      stroke:rgba(48,0,9,.52);
-      stroke-width:2;
+      stroke:rgba(51,0,9,.56);
+      stroke-width:1.8;
+    }
+
+    .seal-ring-inner{
+      fill:none;
+      stroke:rgba(51,0,9,.38);
+      stroke-width:1.2;
+    }
+
+    .seal-text{
+      fill:#3a000a;
+      font-family:"IM Fell English",serif;
+      font-size:9.2px;
+      font-style:italic;
+      letter-spacing:1.65px;
     }
 
     .seal-k{
-      fill:#3b000a;
+      fill:#350009;
       font-family:"Grenze Gotisch",serif;
-      font-size:48px;
+      font-size:55px;
       font-weight:800;
       text-anchor:middle;
       dominant-baseline:middle;
     }
 
-    .seal-text{
-      fill:#3b000a;
-      font-family:"IM Fell English",serif;
-      font-size:10px;
-      font-style:italic;
-      letter-spacing:1.25px;
-      text-transform:uppercase;
+    .seal-flourish{
+      fill:#350009;
+      font-family:"Grenze Gotisch",serif;
+      font-size:13px;
+      text-anchor:middle;
     }
 
-    .break-copy{
-      margin-top:20px;
-      color:#b5a48f;
-      font-size:1.05rem;
-      font-style:italic;
+    .seal-dots{
+      fill:#350009;
+      opacity:.82;
     }
 
-    .breaking .seal{animation:crack .72s cubic-bezier(.2,.8,.3,1) forwards}
-    @keyframes crack{
+    .seal.breaking{
+      animation:sealbreak .78s cubic-bezier(.2,.8,.3,1) forwards;
+    }
+
+    @keyframes sealbreak{
       0%{transform:scale(1);opacity:1}
-      35%{transform:scale(1.08) rotate(-4deg)}
-      65%{transform:scale(.95) rotate(6deg)}
-      100%{transform:scale(1.45) rotate(-12deg);opacity:0;filter:blur(2px)}
+      30%{transform:scale(1.08) rotate(-3deg)}
+      62%{transform:scale(.95) rotate(6deg)}
+      100%{transform:scale(1.65) rotate(-12deg);opacity:0;filter:blur(3px)}
     }
 
-    .letter-stage{
-      display:none;
-      width:min(860px,100%);
+    /* ---------- LETTER ---------- */
+    .stage{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
       opacity:0;
-      transform:translateY(30px);
+      transform:translateY(28px);
+      pointer-events:none;
     }
 
-    .letter-stage.show{
-      display:block;
-      animation:reveal .95s cubic-bezier(.2,.78,.2,1) forwards;
+    .stage.revealed{
+      animation:reveal 1.05s cubic-bezier(.2,.78,.2,1) forwards;
+      pointer-events:auto;
     }
 
     @keyframes reveal{
@@ -200,209 +195,213 @@
     }
 
     .letter{
+      width:min(860px,100%);
       position:relative;
       overflow:hidden;
-      padding:clamp(44px,7vw,76px) clamp(24px,7vw,72px) 52px;
-      border:1px solid rgba(145,117,74,.31);
+      padding:clamp(48px,7vw,78px) clamp(25px,7vw,74px) 54px;
+      border:1px solid rgba(146,118,74,.28);
       background:
-        radial-gradient(circle at 50% -8%,rgba(160,0,25,.08),transparent 26%),
-        linear-gradient(180deg,rgba(255,255,255,.012),transparent 20%),
+        radial-gradient(circle at 50% -10%, rgba(150,0,22,.075), transparent 25%),
+        linear-gradient(180deg, rgba(255,255,255,.012), transparent 22%),
         #070707;
       box-shadow:
-        0 42px 120px rgba(0,0,0,.85),
-        inset 0 0 120px rgba(0,0,0,.58),
-        0 0 0 7px rgba(100,0,15,.035);
+        0 45px 125px rgba(0,0,0,.88),
+        inset 0 0 120px rgba(0,0,0,.6),
+        0 0 0 7px rgba(100,0,14,.03);
     }
 
     .letter::before{
       content:"";
       position:absolute;
-      inset:17px;
-      border:1px solid rgba(145,0,24,.20);
+      inset:18px;
+      border:1px solid rgba(145,0,24,.18);
       pointer-events:none;
     }
 
     .letter::after{
       content:"✠";
       position:absolute;
-      right:24px;
-      top:14px;
+      right:26px;
+      top:16px;
       font-family:"Grenze Gotisch",serif;
-      font-size:8rem;
-      color:rgba(185,0,30,.045);
+      font-size:8.5rem;
+      color:rgba(190,0,30,.042);
       transform:rotate(8deg);
+      pointer-events:none;
     }
 
-    .kicker{
+    .summoned{
       text-align:center;
       color:var(--muted);
-      font-size:1.16rem;
+      font-size:1.23rem;
       font-style:italic;
-      letter-spacing:.05em;
+      letter-spacing:.055em;
     }
 
     h1{
-      margin:7px 0 0;
+      margin:8px 0 0;
       text-align:center;
       font-family:"Grenze Gotisch",serif;
-      font-size:clamp(4.5rem,12vw,8.7rem);
+      font-size:clamp(4.6rem,12vw,8.8rem);
       line-height:.78;
       color:var(--red);
-      text-shadow:0 0 12px rgba(196,12,46,.21),0 0 36px rgba(141,0,24,.14);
+      text-shadow:
+        0 0 12px rgba(191,12,43,.20),
+        0 0 36px rgba(133,0,22,.13);
     }
 
     .birthday{
       text-align:center;
-      margin:26px 0 6px;
-      font-size:clamp(2rem,4vw,2.9rem);
+      margin:27px 0 8px;
+      font-size:clamp(2rem,4.4vw,3rem);
+      color:#f0e3d0;
       font-style:italic;
-      color:#efe2d0;
     }
 
-    .sub{
-      max-width:600px;
+    .intro{
+      max-width:610px;
       margin:0 auto;
       text-align:center;
-      color:#c9baa6;
-      font-size:1.22rem;
-      line-height:1.7;
+      color:#c8baa6;
+      font-size:1.23rem;
+      line-height:1.72;
       font-style:italic;
     }
 
     .rule{
-      width:min(560px,86%);
+      width:min(565px,86%);
       height:1px;
-      margin:30px auto;
-      background:linear-gradient(90deg,transparent,rgba(144,117,74,.75),transparent);
+      margin:31px auto;
+      background:linear-gradient(90deg,transparent,rgba(146,118,74,.74),transparent);
     }
 
-    .grid{
-      max-width:660px;
-      margin:0 auto;
+    .date{
+      text-align:center;
+      color:#f0e3d0;
+      font-size:1.38rem;
+      margin-bottom:8px;
+    }
+
+    .castle{
+      text-align:center;
+      font-size:1.18rem;
+      color:#cabba7;
+      line-height:1.55;
+    }
+
+    .map{
+      display:inline-block;
+      margin-top:7px;
+      color:#b99b68;
+      text-decoration:none;
+      border-bottom:1px solid rgba(185,155,104,.38);
+    }
+
+    .timeline{
+      max-width:640px;
+      margin:29px auto 0;
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:12px;
     }
 
-    .card{
+    .moment{
       padding:22px 18px;
-      border:1px solid rgba(141,0,24,.40);
-      background:rgba(120,0,18,.035);
       text-align:center;
+      border:1px solid rgba(133,0,22,.40);
+      background:rgba(120,0,17,.03);
     }
 
     .label{
-      margin-bottom:7px;
-      color:#92764c;
-      font-size:.76rem;
-      letter-spacing:.18em;
+      color:#90754b;
       text-transform:uppercase;
+      letter-spacing:.17em;
+      font-size:.74rem;
+      margin-bottom:8px;
     }
 
-    .value{
-      color:#e8dcc9;
-      font-size:1.32rem;
-      line-height:1.42;
-    }
-
-    .accent{
+    .time{
       display:block;
-      margin-top:5px;
-      color:var(--red);
       font-family:"Grenze Gotisch",serif;
-      font-size:1.52rem;
+      font-size:1.75rem;
+      color:var(--red);
+      line-height:1;
+      margin-bottom:7px;
     }
 
-    .location{
-      max-width:660px;
-      margin:12px auto 0;
-      padding:18px;
-      text-align:center;
-      border:1px solid rgba(141,0,24,.30);
-      color:#d8cab5;
-      font-size:1.15rem;
+    .moment-copy{
+      color:#d8cbb8;
+      font-size:1.07rem;
       line-height:1.5;
+      font-style:italic;
     }
 
-    .map-link{
-      display:inline-block;
-      margin-top:8px;
-      color:#c9a970;
-      text-decoration:none;
-      border-bottom:1px solid rgba(201,169,112,.45);
-    }
-
-    .map-link:hover{color:#ead3a4}
-
-    .decree{
-      max-width:650px;
+    .game-copy{
+      max-width:655px;
       margin:0 auto;
       text-align:center;
-      color:#ddd0bd;
-      font-size:1.26rem;
-      line-height:1.74;
+      color:#dfd1bd;
+      font-size:1.27rem;
+      line-height:1.75;
       font-style:italic;
     }
 
-    .decree strong{color:#ef2747;font-weight:400}
+    .game-copy strong{
+      color:#ef2948;
+      font-weight:400;
+    }
 
-    .dress{
+    .details-block{
       max-width:580px;
       margin:26px auto 0;
-      padding:20px 18px;
+      padding:22px 20px;
+      border-top:1px solid rgba(133,0,22,.42);
+      border-bottom:1px solid rgba(133,0,22,.42);
       text-align:center;
-      border-top:1px solid rgba(141,0,24,.43);
-      border-bottom:1px solid rgba(141,0,24,.43);
     }
 
-    .dress-title{
+    .details-title{
       font-family:"Grenze Gotisch",serif;
       color:var(--red);
-      font-size:1.6rem;
-      margin-bottom:5px;
+      font-size:1.58rem;
+      margin-bottom:6px;
     }
 
-    .dress-copy{
-      font-size:1.18rem;
-      color:#d6c7b3;
-      font-style:italic;
-    }
-
-    .drink-note{
-      max-width:620px;
-      margin:28px auto 0;
-      text-align:center;
-      color:#c8baa5;
+    .details-copy{
+      color:#d4c5b1;
       font-size:1.16rem;
       line-height:1.65;
       font-style:italic;
     }
 
-    .checkout{
-      margin-top:27px;
+    .drinks{
+      max-width:610px;
+      margin:28px auto 0;
       text-align:center;
-      color:#a7957d;
-      font-size:1.02rem;
+      color:#c8baa6;
+      font-size:1.14rem;
+      line-height:1.66;
+      font-style:italic;
     }
 
-    .byob{
-      margin-top:16px;
+    .checkout{
+      margin-top:28px;
       text-align:center;
-      font-family:"Grenze Gotisch",serif;
-      font-size:1.55rem;
-      color:#cab99c;
+      color:#9f8e78;
+      font-size:1.03rem;
+      letter-spacing:.02em;
     }
 
     .sound{
       display:none;
       position:fixed;
-      right:18px;
-      bottom:18px;
-      z-index:20;
+      right:16px;
+      bottom:16px;
+      z-index:30;
+      border:1px solid rgba(145,0,24,.42);
+      background:rgba(4,4,4,.80);
+      color:#d7c8b3;
       padding:9px 12px;
-      border:1px solid rgba(150,0,25,.45);
-      background:rgba(5,5,5,.78);
-      color:#d8c9b3;
       font:inherit;
       cursor:pointer;
       backdrop-filter:blur(10px);
@@ -411,124 +410,141 @@
     .sound.show{display:block}
 
     @media(max-width:650px){
-      .page{padding:11px}
-      .envelope{min-height:430px}
-      .grid{grid-template-columns:1fr}
-      .letter{padding-top:50px}
+      .stage{padding:10px}
+      .letter{padding-top:52px}
+      .timeline{grid-template-columns:1fr}
+      .seal{width:172px;height:172px}
+      .seal::after{width:190px;height:190px}
+      .seal-svg{width:147px;height:147px}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
 
-    <section class="summons" id="summons">
-      <div class="envelope">
-        <div class="seal-area" id="sealArea">
-          <div class="opening-line">You have been summoned.</div>
-          <button class="seal" id="sealButton" aria-label="Break Kshipra's Summons seal">
-            <svg class="seal-svg" viewBox="0 0 120 120" aria-hidden="true">
-              <defs>
-                <path id="sealPath"
-                      d="M 60,60 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"/>
-              </defs>
-              <circle class="seal-ring" cx="60" cy="60" r="43"></circle>
-              <text class="seal-text">
-                <textPath href="#sealPath" startOffset="50%" text-anchor="middle">
-                  KSHIPRA'S SUMMONS
-                </textPath>
-              </text>
-              <text class="seal-k" x="60" y="61">K</text>
-            </svg>
-          </button>
-          <div class="break-copy">Break the seal.</div>
+  <!-- FIRST SCREEN: NOTHING BUT THE SEAL -->
+  <section class="opening" id="opening">
+    <button class="seal" id="sealButton" aria-label="Open Kshipra's Summons">
+      <svg class="seal-svg" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <path id="sealPath"
+                d="M 60,60 m -45,0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0"/>
+        </defs>
+
+        <circle class="seal-ring-outer" cx="60" cy="60" r="46"></circle>
+        <circle class="seal-ring-inner" cx="60" cy="60" r="36"></circle>
+
+        <text class="seal-text">
+          <textPath href="#sealPath" startOffset="50%" text-anchor="middle">
+            KSHIPRA'S SUMMONS
+          </textPath>
+        </text>
+
+        <circle class="seal-dots" cx="20" cy="60" r="1.4"></circle>
+        <circle class="seal-dots" cx="100" cy="60" r="1.4"></circle>
+
+        <text class="seal-flourish" x="60" y="29">✦</text>
+        <text class="seal-flourish" x="60" y="97">✦</text>
+
+        <text class="seal-k" x="60" y="63">K</text>
+      </svg>
+    </button>
+  </section>
+
+  <!-- INVITATION -->
+  <main class="stage" id="stage" aria-hidden="true">
+    <article class="letter">
+
+      <div class="summoned">You have been summoned.</div>
+
+      <h1>The Traitors</h1>
+
+      <div class="birthday">Kshipra turns 29</div>
+
+      <p class="intro">
+        For one night, friendships will be tested, alliances will be made,
+        and somebody in the room will be lying.
+      </p>
+
+      <div class="rule"></div>
+
+      <div class="date">26–27 September 2026</div>
+
+      <div class="castle">
+        StayVista Dazzle Villa · Karjat<br>
+        <a class="map"
+           href="https://www.google.com/maps/search/?api=1&query=StayVista%20Dazzle%20Villa%20Karjat"
+           target="_blank" rel="noopener">
+          Open villa location
+        </a>
+      </div>
+
+      <section class="timeline">
+        <div class="moment">
+          <div class="label">Your arrival</div>
+          <span class="time">2:00 PM</span>
+          <div class="moment-copy">
+            Be at the villa from 2 PM.<br>
+            Settle in. Pour a drink. Choose your allies carefully.
+          </div>
+        </div>
+
+        <div class="moment">
+          <div class="label">The game begins</div>
+          <span class="time">5:00 PM</span>
+          <div class="moment-copy">
+            Roles are revealed.<br>
+            From this point onward, trust becomes expensive.
+          </div>
+        </div>
+      </section>
+
+      <div class="rule"></div>
+
+      <p class="game-copy">
+        Among you will walk <strong>Traitors.</strong><br>
+        There will be Shields. Secret powers. Murder. Banishment.<br>
+        And at the Circle, every accusation will have consequences.
+      </p>
+
+      <div class="details-block">
+        <div class="details-title">Dress Code</div>
+        <div class="details-copy">
+          Elevated casuals.<br>
+          Polished enough for the game. Relaxed enough for the villa.
         </div>
       </div>
-    </section>
 
-    <section class="letter-stage" id="letterStage" aria-hidden="true">
-      <article class="letter">
+      <p class="drinks">
+        Two bottles of tequila will be waiting.<br>
+        If there is something specific you would rather drink,
+        bring your bottle of choice.
+      </p>
 
-        <div class="kicker">You have been summoned.</div>
+      <div class="rule"></div>
 
-        <h1>The Traitors</h1>
+      <p class="game-copy">
+        Your role will be known only after you enter the game.<br>
+        <strong>Innocent or Traitor?</strong><br>
+        Only the hosts shall know.
+      </p>
 
-        <div class="birthday">Kshipra turns 29</div>
+      <div class="checkout">
+        Checkout · 11:00 AM on 27 September
+      </div>
 
-        <p class="sub">
-          A weekend of hidden loyalties, secret powers, murder,
-          banishment — and absolutely no reason to trust anyone.
-        </p>
-
-        <div class="rule"></div>
-
-        <section class="grid">
-          <div class="card">
-            <div class="label">The Summons</div>
-            <div class="value">
-              Saturday, 26 September
-              <span class="accent">Arrive from 2:00 PM</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="label">The Game Begins</div>
-            <div class="value">
-              Be inside the castle before
-              <span class="accent">5:00 PM</span>
-            </div>
-          </div>
-        </section>
-
-        <div class="location">
-          <div class="label">The Castle</div>
-          <div class="value">StayVista Dazzle Villa · Karjat</div>
-          <a class="map-link"
-             href="https://www.google.com/maps/search/?api=1&query=StayVista%20Dazzle%20Villa%20Karjat"
-             target="_blank" rel="noopener">
-             Open villa location
-          </a>
-        </div>
-
-        <div class="rule"></div>
-
-        <p class="decree">
-          Among you will walk <strong>Traitors.</strong><br>
-          Some will lie. Some will betray. Some will be murdered.<br>
-          At the Circle, one of you will be banished.
-        </p>
-
-        <div class="dress">
-          <div class="dress-title">Dress Code</div>
-          <div class="dress-copy">
-            Elevated casuals.<br>
-            Come dressed for the game — polished, sharp, a little dangerous.
-          </div>
-        </div>
-
-        <p class="drink-note">
-          Two bottles of tequila will be waiting at the villa.<br>
-          If you want anything specific, bring your poison of choice.
-        </p>
-
-        <div class="rule"></div>
-
-        <p class="decree">
-          Your role will be revealed only after you enter.<br>
-          <strong>Innocent or Traitor?</strong><br>
-          Only the hosts shall know.
-        </p>
-
-        <div class="checkout">
-          26–27 September 2026 · Checkout at 11:00 AM
-        </div>
-
-        <div class="byob">BYOB</div>
-
-      </article>
-    </section>
+    </article>
   </main>
 
+  <!-- Add your own licensed/owned track here -->
   <audio id="bgAudio" loop preload="auto">
     <source src="assets/traitors-theme.mp3" type="audio/mpeg">
   </audio>
@@ -537,9 +553,8 @@
 
   <script>
     const sealButton = document.getElementById("sealButton");
-    const sealArea = document.getElementById("sealArea");
-    const summons = document.getElementById("summons");
-    const letterStage = document.getElementById("letterStage");
+    const opening = document.getElementById("opening");
+    const stage = document.getElementById("stage");
     const bgAudio = document.getElementById("bgAudio");
     const soundButton = document.getElementById("soundButton");
 
@@ -551,8 +566,8 @@
       try{
         await bgAudio.play();
         soundButton.classList.add("show");
-      }catch(e){
-        console.info("Audio unavailable or blocked:", e);
+      }catch(err){
+        console.info("Audio unavailable or blocked:", err);
       }
     }
 
@@ -560,17 +575,17 @@
       if(opened) return;
       opened = true;
 
-      sealArea.classList.add("breaking");
+      sealButton.classList.add("breaking");
       startAudio();
 
-      setTimeout(() => summons.classList.add("hide"), 390);
+      setTimeout(() => opening.classList.add("dismissed"), 420);
 
       setTimeout(() => {
-        summons.style.display = "none";
-        letterStage.classList.add("show");
-        letterStage.setAttribute("aria-hidden","false");
+        opening.style.display = "none";
+        stage.classList.add("revealed");
+        stage.setAttribute("aria-hidden","false");
         window.scrollTo({top:0,behavior:"smooth"});
-      }, 920);
+      }, 960);
     }
 
     sealButton.addEventListener("click", openInvite);
@@ -579,8 +594,9 @@
       muted = !muted;
       bgAudio.muted = muted;
       soundButton.textContent = muted ? "Sound: off" : "Sound: on";
+
       if(!muted && bgAudio.paused){
-        try{ await bgAudio.play(); }catch(e){}
+        try{ await bgAudio.play(); }catch(err){}
       }
     });
   </script>
