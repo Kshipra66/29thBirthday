@@ -15,570 +15,56 @@
       --black:#020202;
       --paper:#070707;
       --ivory:#eadfce;
-      --muted:#a79884;
-      --blood:#7f0014;
-      --red:#c20b2b;
-      --gold:#9a7c4b;
+      --soft:#cdbda8;
+      --muted:#9c8c77;
+      --blood:#790013;
+      --red:#c30b2d;
+      --red2:#8e0019;
+      --gold:#9a7b48;
     }
 
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     html,body{min-height:100%}
 
     body{
       margin:0;
-      overflow-x:hidden;
       background:#020202;
       color:var(--ivory);
       font-family:"IM Fell English",Georgia,serif;
+      overflow-x:hidden;
     }
 
-    /* soft film grain */
     body::before{
       content:"";
       position:fixed;
       inset:0;
-      z-index:80;
       pointer-events:none;
-      opacity:.12;
+      z-index:90;
+      opacity:.11;
       background-image:
-        repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.05) 0 1px, transparent 1px 3px);
+        repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.055) 0 1px, transparent 1px 3px);
       mix-blend-mode:soft-light;
     }
 
-    /* subtle breathing/candle glow */
     .ambient{
       position:fixed;
       inset:0;
       z-index:0;
       pointer-events:none;
       background:
-        radial-gradient(circle at 16% 28%, rgba(190,10,42,.065), transparent 17%),
-        radial-gradient(circle at 84% 72%, rgba(190,10,42,.055), transparent 18%),
-        radial-gradient(circle at 50% 0%, rgba(145,0,24,.05), transparent 26%);
-      animation:ambientFlicker 5.2s ease-in-out infinite alternate;
+        radial-gradient(circle at 18% 24%,rgba(176,0,30,.075),transparent 19%),
+        radial-gradient(circle at 82% 66%,rgba(176,0,30,.06),transparent 18%),
+        radial-gradient(circle at 50% 0%,rgba(145,0,24,.055),transparent 28%);
+      animation:ambientFlicker 5.5s ease-in-out infinite alternate;
     }
 
     @keyframes ambientFlicker{
-      0%{opacity:.38;transform:scale(1)}
-      37%{opacity:.56}
+      0%{opacity:.34;transform:scale(1)}
+      33%{opacity:.58}
       70%{opacity:.43}
-      100%{opacity:.72;transform:scale(1.02)}
+      100%{opacity:.75;transform:scale(1.025)}
     }
-
-    /* ---------- OPENING: ONLY THE SEAL ---------- */
-    .opening{
-      position:fixed;
-      inset:0;
-      z-index:30;
-      display:grid;
-      place-items:center;
-      background:#020202;
-      transition:opacity .7s ease, filter .7s ease, transform .7s ease;
-    }
-
-    .opening.dismissed{
-      opacity:0;
-      filter:blur(7px);
-      transform:scale(1.03);
-      pointer-events:none;
-    }
-
-    .seal{
-      width:220px;
-      height:220px;
-      padding:0;
-      border:0;
-      border-radius:50%;
-      cursor:pointer;
-      display:grid;
-      place-items:center;
-      position:relative;
-      background:
-        radial-gradient(circle at 28% 22%, rgba(255,110,130,.50) 0 3%, transparent 4%),
-        radial-gradient(circle at 70% 73%, rgba(52,0,9,.40) 0 11%, transparent 12%),
-        radial-gradient(circle at 43% 63%, rgba(255,25,55,.10) 0 10%, transparent 11%),
-        radial-gradient(circle, #c30b2d 0 43%, #96001c 44% 63%, #5c000f 64% 100%);
-      box-shadow:
-        0 28px 58px rgba(0,0,0,.85),
-        0 0 95px rgba(150,0,26,.13),
-        inset 0 0 0 5px rgba(255,105,125,.065),
-        inset 0 -22px 30px rgba(45,0,8,.45),
-        inset 0 15px 18px rgba(255,255,255,.035);
-      transition:transform .22s ease,filter .22s ease;
-    }
-
-    .seal:hover{transform:scale(1.025);filter:brightness(1.035)}
-    .seal:active{transform:scale(.985)}
-
-    .seal::before{
-      content:"";
-      position:absolute;
-      inset:-13px;
-      border-radius:47% 53% 50% 49% / 52% 47% 53% 48%;
-      border:3px solid rgba(106,0,17,.55);
-      box-shadow:
-        7px 4px 0 rgba(106,0,17,.18),
-        -5px -3px 0 rgba(175,0,31,.10);
-      transform:rotate(-5deg);
-    }
-
-    .seal::after{
-      content:"";
-      position:absolute;
-      width:241px;
-      height:241px;
-      border-radius:51% 49% 53% 47% / 47% 54% 46% 53%;
-      border:2px solid rgba(126,0,20,.48);
-      transform:rotate(8deg);
-    }
-
-    .seal-svg{
-      width:185px;
-      height:185px;
-      overflow:visible;
-    }
-
-    .seal-ring-outer{
-      fill:none;
-      stroke:rgba(50,0,9,.58);
-      stroke-width:1.8;
-    }
-
-    .seal-ring-inner{
-      fill:none;
-      stroke:rgba(50,0,9,.38);
-      stroke-width:1.1;
-    }
-
-    .seal-text{
-      fill:#370009;
-      font-family:"IM Fell English",serif;
-      font-size:8.8px;
-      font-style:italic;
-      letter-spacing:1.7px;
-    }
-
-    .seal-k{
-      fill:#320008;
-      font-family:"Grenze Gotisch",serif;
-      font-size:56px;
-      font-weight:800;
-      text-anchor:middle;
-      dominant-baseline:middle;
-    }
-
-    .seal-flourish{
-      fill:#350009;
-      font-size:12px;
-      text-anchor:middle;
-    }
-
-    .seal.breaking{
-      animation:sealBreak .82s cubic-bezier(.2,.82,.3,1) forwards;
-    }
-
-    @keyframes sealBreak{
-      0%{transform:scale(1);opacity:1}
-      28%{transform:scale(1.08) rotate(-3deg)}
-      58%{transform:scale(.95) rotate(5deg)}
-      100%{transform:scale(1.75) rotate(-13deg);opacity:0;filter:blur(4px)}
-    }
-
-    /* ---------- PORTRAIT FLASH ---------- */
-    .portrait-stage{
-      position:fixed;
-      inset:0;
-      z-index:25;
-      display:none;
-      place-items:center;
-      overflow:hidden;
-      background:#020202;
-      opacity:0;
-    }
-
-    .portrait-stage.show{
-      display:grid;
-      animation:portraitStage 2.35s ease forwards;
-    }
-
-    @keyframes portraitStage{
-      0%{opacity:0}
-      16%{opacity:1}
-      78%{opacity:1}
-      100%{opacity:0}
-    }
-
-    .portrait-wrap{
-      position:relative;
-      width:min(620px,92vw);
-      height:min(82vh,850px);
-      overflow:hidden;
-      border:1px solid rgba(145,0,24,.28);
-      box-shadow:
-        0 0 0 8px rgba(120,0,18,.025),
-        0 38px 105px rgba(0,0,0,.9),
-        0 0 70px rgba(150,0,25,.10);
-      animation:portraitZoom 2.35s ease forwards;
-    }
-
-    @keyframes portraitZoom{
-      from{transform:scale(1.025)}
-      to{transform:scale(1)}
-    }
-
-    .portrait-wrap img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center 22%;
-      filter:saturate(.82) contrast(1.06) brightness(.78);
-    }
-
-    .portrait-wrap::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:2;
-      background:
-        linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.08) 52%,rgba(0,0,0,.72) 100%),
-        radial-gradient(circle at 50% 40%,transparent 38%,rgba(0,0,0,.44) 100%);
-    }
-
-    .portrait-caption{
-      position:absolute;
-      z-index:3;
-      bottom:35px;
-      left:0;
-      right:0;
-      text-align:center;
-      color:#f0e2ce;
-      font-family:"Grenze Gotisch",serif;
-      font-size:clamp(2rem,6vw,3.6rem);
-      text-shadow:0 2px 18px rgba(0,0,0,.85);
-      opacity:0;
-      animation:captionIn 2.35s ease forwards;
-    }
-
-    @keyframes captionIn{
-      0%,26%{opacity:0;transform:translateY(8px)}
-      48%,78%{opacity:1;transform:translateY(0)}
-      100%{opacity:0;transform:translateY(-4px)}
-    }
-
-    /* ---------- LETTER ---------- */
-    .stage{
-      position:relative;
-      z-index:2;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:18px;
-      opacity:0;
-      transform:translateY(30px);
-      pointer-events:none;
-    }
-
-    .stage.revealed{
-      animation:letterReveal 1.05s cubic-bezier(.2,.78,.2,1) forwards;
-      pointer-events:auto;
-    }
-
-    @keyframes letterReveal{
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .letter{
-      width:min(860px,100%);
-      position:relative;
-      overflow:hidden;
-      padding:clamp(48px,7vw,78px) clamp(25px,7vw,74px) 60px;
-      border:1px solid rgba(146,118,74,.28);
-      background:
-        radial-gradient(circle at 50% -10%, rgba(150,0,22,.075), transparent 25%),
-        linear-gradient(180deg,rgba(255,255,255,.012),transparent 22%),
-        #070707;
-      box-shadow:
-        0 45px 125px rgba(0,0,0,.88),
-        inset 0 0 120px rgba(0,0,0,.60),
-        0 0 0 7px rgba(100,0,14,.03);
-    }
-
-    .letter::before{
-      content:"";
-      position:absolute;
-      inset:18px;
-      border:1px solid rgba(145,0,24,.18);
-      pointer-events:none;
-    }
-
-    .letter::after{
-      content:"✠";
-      position:absolute;
-      right:26px;
-      top:16px;
-      font-family:"Grenze Gotisch",serif;
-      font-size:8.5rem;
-      color:rgba(190,0,30,.042);
-      transform:rotate(8deg);
-      pointer-events:none;
-    }
-
-    .summoned{
-      text-align:center;
-      color:var(--muted);
-      font-size:1.22rem;
-      font-style:italic;
-      letter-spacing:.055em;
-      opacity:0;
-      animation:lineRise .75s ease .45s forwards;
-    }
-
-    h1{
-      margin:8px 0 0;
-      text-align:center;
-      font-family:"Grenze Gotisch",serif;
-      font-size:clamp(4.7rem,12vw,8.9rem);
-      line-height:.78;
-      color:var(--red);
-      text-shadow:
-        0 0 12px rgba(194,11,43,.20),
-        0 0 36px rgba(127,0,20,.13);
-      opacity:0;
-      animation:lineRise .85s ease .65s forwards;
-    }
-
-    .birthday{
-      text-align:center;
-      margin:27px 0 8px;
-      font-size:clamp(2rem,4.4vw,3rem);
-      color:#f0e3d0;
-      font-style:italic;
-      opacity:0;
-      animation:lineRise .8s ease .85s forwards;
-    }
-
-    @keyframes lineRise{
-      from{opacity:0;transform:translateY(10px)}
-      to{opacity:1;transform:translateY(0)}
-    }
-
-    .intro{
-      max-width:610px;
-      margin:0 auto;
-      text-align:center;
-      color:#c8baa6;
-      font-size:1.23rem;
-      line-height:1.72;
-      font-style:italic;
-    }
-
-    .rule{
-      width:min(565px,86%);
-      height:1px;
-      margin:31px auto;
-      background:linear-gradient(90deg,transparent,rgba(146,118,74,.74),transparent);
-    }
-
-    .date{
-      text-align:center;
-      color:#f0e3d0;
-      font-size:1.38rem;
-      margin-bottom:8px;
-    }
-
-    .castle{
-      text-align:center;
-      font-size:1.18rem;
-      color:#cabba7;
-      line-height:1.55;
-    }
-
-    .map{
-      display:inline-block;
-      margin-top:10px;
-      padding:9px 16px 8px;
-      border:1px solid rgba(154,124,75,.42);
-      color:#c9aa75;
-      text-decoration:none;
-      letter-spacing:.035em;
-      background:rgba(154,124,75,.035);
-      transition:.2s ease;
-    }
-
-    .map:hover{
-      color:#ead4a7;
-      border-color:rgba(196,12,43,.50);
-      background:rgba(130,0,20,.055);
-    }
-
-    .timeline{
-      max-width:640px;
-      margin:29px auto 0;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .moment{
-      padding:22px 18px;
-      text-align:center;
-      border:1px solid rgba(127,0,20,.40);
-      background:rgba(120,0,17,.03);
-    }
-
-    .label{
-      color:#90754b;
-      text-transform:uppercase;
-      letter-spacing:.17em;
-      font-size:.74rem;
-      margin-bottom:8px;
-    }
-
-    .time{
-      display:block;
-      font-family:"Grenze Gotisch",serif;
-      font-size:1.78rem;
-      color:var(--red);
-      line-height:1;
-      margin-bottom:7px;
-    }
-
-    .moment-copy{
-      color:#d8cbb8;
-      font-size:1.07rem;
-      line-height:1.5;
-      font-style:italic;
-    }
-
-    .game-copy{
-      max-width:655px;
-      margin:0 auto;
-      text-align:center;
-      color:#dfd1bd;
-      font-size:1.27rem;
-      line-height:1.75;
-      font-style:italic;
-    }
-
-    .game-copy strong{
-      color:#ef2948;
-      font-weight:400;
-    }
-
-    .details-block{
-      max-width:580px;
-      margin:26px auto 0;
-      padding:22px 20px;
-      border-top:1px solid rgba(127,0,20,.42);
-      border-bottom:1px solid rgba(127,0,20,.42);
-      text-align:center;
-    }
-
-    .details-title{
-      font-family:"Grenze Gotisch",serif;
-      color:var(--red);
-      font-size:1.6rem;
-      margin-bottom:6px;
-    }
-
-    .details-copy{
-      color:#d4c5b1;
-      font-size:1.16rem;
-      line-height:1.65;
-      font-style:italic;
-    }
-
-    .drinks{
-      max-width:610px;
-      margin:28px auto 0;
-      text-align:center;
-      color:#c8baa6;
-      font-size:1.14rem;
-      line-height:1.66;
-      font-style:italic;
-    }
-
-    .role-button{
-      display:block;
-      margin:28px auto 0;
-      padding:12px 20px 11px;
-      border:1px solid rgba(194,11,43,.58);
-      background:rgba(127,0,20,.05);
-      color:#e6d7c3;
-      font-family:"IM Fell English",serif;
-      font-style:italic;
-      font-size:1.05rem;
-      cursor:pointer;
-      transition:.22s ease;
-    }
-
-    .role-button:hover{
-      border-color:rgba(194,11,43,.90);
-      background:rgba(127,0,20,.10);
-    }
-
-    .role-answer{
-      min-height:30px;
-      margin-top:13px;
-      text-align:center;
-      color:#d8c6ad;
-      font-style:italic;
-      opacity:0;
-      transform:translateY(5px);
-      transition:.35s ease;
-    }
-
-    .role-answer.show{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    .checkout{
-      margin-top:30px;
-      text-align:center;
-      color:#9f8e78;
-      font-size:1.03rem;
-      letter-spacing:.02em;
-    }
-
-    .ending{
-      margin-top:38px;
-      padding-top:30px;
-      border-top:1px solid rgba(146,118,74,.30);
-      text-align:center;
-    }
-
-    .ending-date{
-      color:#b09c80;
-      letter-spacing:.16em;
-      font-size:.82rem;
-      text-transform:uppercase;
-    }
-
-    .ending-title{
-      margin-top:8px;
-      font-family:"Grenze Gotisch",serif;
-      font-size:clamp(2.2rem,6vw,3.6rem);
-      color:var(--red);
-    }
-
-    .fingerprint{
-      width:64px;
-      height:80px;
-      margin:22px auto 0;
-      opacity:.28;
-      border-radius:50%;
-      background:
-        repeating-radial-gradient(ellipse at center,
-          transparent 0 3px,
-          rgba(194,11,43,.85) 3px 4px,
-          transparent 4px 7px);
-      transform:rotate(-8deg) scaleX(.72);
-      filter:blur(.15px);
-    }
-
-
-    /* ---------- EXTRA CINEMATIC LAYERS ---------- */
 
     .vignette{
       position:fixed;
@@ -586,78 +72,114 @@
       z-index:1;
       pointer-events:none;
       background:
-        radial-gradient(circle at center, transparent 48%, rgba(0,0,0,.36) 78%, rgba(0,0,0,.72) 100%);
+        radial-gradient(circle at center,transparent 46%,rgba(0,0,0,.42) 78%,rgba(0,0,0,.78) 100%);
     }
 
-    .red-orbit{
-      position:fixed;
-      z-index:1;
-      width:52vw;
-      height:52vw;
-      max-width:760px;
-      max-height:760px;
-      min-width:360px;
-      min-height:360px;
-      left:50%;
-      top:48%;
-      transform:translate(-50%,-50%);
-      border-radius:50%;
-      pointer-events:none;
-      background:
-        radial-gradient(circle, transparent 0 53%, rgba(175,0,30,.055) 57%, transparent 63%);
-      animation:orbitPulse 7s ease-in-out infinite alternate;
-      filter:blur(.2px);
-    }
-
-    @keyframes orbitPulse{
-      from{opacity:.30; transform:translate(-50%,-50%) scale(.96)}
-      to{opacity:.75; transform:translate(-50%,-50%) scale(1.06)}
-    }
-
-    .ash{
+    .embers{
       position:fixed;
       inset:0;
-      z-index:3;
+      z-index:2;
       pointer-events:none;
       overflow:hidden;
     }
 
-    .ash i{
+    .embers i{
       position:absolute;
       width:2px;
       height:2px;
       border-radius:50%;
-      background:rgba(230,214,190,.25);
-      box-shadow:0 0 5px rgba(210,185,150,.16);
-      animation:ashFall linear infinite;
+      background:rgba(230,205,170,.25);
+      box-shadow:0 0 5px rgba(190,30,45,.14);
+      animation:drift linear infinite;
     }
 
-    @keyframes ashFall{
-      from{transform:translate3d(0,-8vh,0); opacity:0}
-      12%{opacity:.6}
-      85%{opacity:.32}
-      to{transform:translate3d(30px,112vh,0); opacity:0}
+    @keyframes drift{
+      from{transform:translate3d(0,-12vh,0);opacity:0}
+      10%{opacity:.55}
+      82%{opacity:.26}
+      to{transform:translate3d(25px,112vh,0);opacity:0}
     }
 
-    /* Make the opening seal feel like a living wax crest */
+    /* ---------- OPENING ---------- */
+    .opening{
+      position:fixed;
+      inset:0;
+      z-index:40;
+      display:grid;
+      place-items:center;
+      background:#020202;
+      transition:opacity .72s ease,filter .72s ease,transform .72s ease;
+    }
+
     .opening::before{
       content:"";
       position:absolute;
-      width:330px;
-      height:330px;
+      width:380px;
+      height:380px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(165,0,28,.12), transparent 68%);
-      animation:sealHalo 3.4s ease-in-out infinite alternate;
-      filter:blur(8px);
+      background:radial-gradient(circle,rgba(165,0,29,.15),transparent 68%);
+      filter:blur(10px);
+      animation:halo 3.3s ease-in-out infinite alternate;
     }
 
-    @keyframes sealHalo{
-      from{opacity:.40; transform:scale(.90)}
-      to{opacity:.86; transform:scale(1.10)}
+    @keyframes halo{
+      from{opacity:.38;transform:scale(.9)}
+      to{opacity:.85;transform:scale(1.1)}
     }
+
+    .opening.dismissed{
+      opacity:0;
+      filter:blur(8px);
+      transform:scale(1.04);
+      pointer-events:none;
+    }
+
+    .seal{
+      width:232px;
+      height:232px;
+      padding:0;
+      border:0;
+      border-radius:50%;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      position:relative;
+      z-index:2;
+      background:
+        radial-gradient(circle at 28% 22%,rgba(255,110,130,.48) 0 3%,transparent 4%),
+        radial-gradient(circle at 70% 73%,rgba(52,0,9,.40) 0 11%,transparent 12%),
+        radial-gradient(circle at 43% 63%,rgba(255,25,55,.10) 0 10%,transparent 11%),
+        radial-gradient(circle,#c30b2d 0 43%,#96001c 44% 63%,#5c000f 64% 100%);
+      box-shadow:
+        0 30px 62px rgba(0,0,0,.88),
+        0 0 110px rgba(150,0,26,.15),
+        inset 0 0 0 5px rgba(255,105,125,.06),
+        inset 0 -24px 31px rgba(45,0,8,.46);
+      transition:.22s ease;
+    }
+
+    .seal:hover{transform:scale(1.025)}
+    .seal:active{transform:scale(.98)}
 
     .seal::before{
+      content:"";
+      position:absolute;
+      inset:-14px;
+      border-radius:47% 53% 50% 49% / 52% 47% 53% 48%;
+      border:3px solid rgba(106,0,17,.55);
+      box-shadow:7px 4px 0 rgba(106,0,17,.18),-5px -3px 0 rgba(175,0,31,.10);
+      transform:rotate(-5deg);
       animation:waxEdge 5s ease-in-out infinite alternate;
+    }
+
+    .seal::after{
+      content:"";
+      position:absolute;
+      width:254px;
+      height:254px;
+      border-radius:51% 49% 53% 47% / 47% 54% 46% 53%;
+      border:2px solid rgba(126,0,20,.47);
+      transform:rotate(8deg);
     }
 
     @keyframes waxEdge{
@@ -666,68 +188,160 @@
     }
 
     .seal-svg{
-      animation:crestBreathe 3.7s ease-in-out infinite alternate;
+      width:192px;
+      height:192px;
+      overflow:visible;
+      animation:crestBreathe 3.6s ease-in-out infinite alternate;
     }
 
     @keyframes crestBreathe{
-      from{filter:drop-shadow(0 0 0 rgba(0,0,0,0)); transform:scale(.99)}
-      to{filter:drop-shadow(0 0 5px rgba(55,0,10,.26)); transform:scale(1.018)}
+      from{transform:scale(.99)}
+      to{transform:scale(1.018)}
     }
 
-    .portrait-stage::before{
+    .seal-ring-outer{fill:none;stroke:rgba(50,0,9,.59);stroke-width:1.8}
+    .seal-ring-inner{fill:none;stroke:rgba(50,0,9,.39);stroke-width:1.1}
+    .seal-text{
+      fill:#370009;
+      font-family:"IM Fell English",serif;
+      font-size:8.8px;
+      font-style:italic;
+      letter-spacing:1.7px;
+    }
+    .seal-k{
+      fill:#320008;
+      font-family:"Grenze Gotisch",serif;
+      font-size:56px;
+      font-weight:800;
+      text-anchor:middle;
+      dominant-baseline:middle;
+    }
+    .seal-flourish{fill:#350009;font-size:12px;text-anchor:middle}
+
+    .seal.breaking{
+      animation:sealBreak .88s cubic-bezier(.2,.82,.3,1) forwards;
+    }
+
+    @keyframes sealBreak{
+      0%{transform:scale(1);opacity:1}
+      26%{transform:scale(1.08) rotate(-3deg)}
+      58%{transform:scale(.94) rotate(5deg)}
+      100%{transform:scale(1.8) rotate(-13deg);opacity:0;filter:blur(5px)}
+    }
+
+    /* ---------- TEXT INTERSTITIAL ---------- */
+    .omen{
+      position:fixed;
+      inset:0;
+      z-index:35;
+      display:none;
+      place-items:center;
+      text-align:center;
+      background:#020202;
+      overflow:hidden;
+      opacity:0;
+    }
+
+    .omen.show{
+      display:grid;
+      animation:omenStage 3.05s ease forwards;
+    }
+
+    @keyframes omenStage{
+      0%{opacity:0}
+      13%,83%{opacity:1}
+      100%{opacity:0}
+    }
+
+    .omen::before,
+    .omen::after{
       content:"";
       position:absolute;
-      inset:0;
-      z-index:1;
-      pointer-events:none;
-      background:
-        linear-gradient(90deg, rgba(0,0,0,.90), transparent 24%, transparent 76%, rgba(0,0,0,.90)),
-        linear-gradient(180deg, rgba(0,0,0,.55), transparent 20%, transparent 72%, rgba(0,0,0,.72));
-    }
-
-    .portrait-wrap{
-      clip-path:inset(100% 0 0 0);
-    }
-
-    .portrait-stage.show .portrait-wrap{
-      animation:
-        portraitCurtain 1.05s cubic-bezier(.18,.8,.2,1) forwards,
-        portraitZoom 2.35s ease forwards;
-    }
-
-    @keyframes portraitCurtain{
-      from{clip-path:inset(100% 0 0 0)}
-      to{clip-path:inset(0 0 0 0)}
-    }
-
-    .portrait-wrap img{
-      transform:scale(1.055);
-      animation:portraitFloat 2.35s ease forwards;
-    }
-
-    @keyframes portraitFloat{
-      from{transform:scale(1.055) translateY(6px)}
-      to{transform:scale(1.015) translateY(0)}
-    }
-
-    .portrait-caption::after{
-      content:"";
-      display:block;
-      width:90px;
+      left:50%;
+      width:min(620px,75vw);
       height:1px;
-      margin:12px auto 0;
-      background:linear-gradient(90deg,transparent,#b90b2a,transparent);
-      animation:captionRule 1.7s ease forwards;
-      transform-origin:center;
+      background:linear-gradient(90deg,transparent,rgba(160,0,27,.72),transparent);
+      transform:translateX(-50%) scaleX(0);
     }
 
-    @keyframes captionRule{
-      from{transform:scaleX(0); opacity:0}
-      to{transform:scaleX(1); opacity:1}
+    .omen::before{top:34%;animation:drawLine 2.2s ease .25s forwards}
+    .omen::after{bottom:34%;animation:drawLine 2.2s ease .45s forwards}
+
+    @keyframes drawLine{
+      40%,100%{transform:translateX(-50%) scaleX(1)}
     }
 
-    /* Letter arrives like an unfolded document */
+    .omen-copy{
+      position:relative;
+      z-index:2;
+      width:min(720px,84vw);
+    }
+
+    .omen-small{
+      color:#9e8e79;
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      font-size:.75rem;
+      opacity:0;
+      animation:omenText .7s ease .3s forwards;
+    }
+
+    .omen-main{
+      margin:10px 0 0;
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(3rem,10vw,6.2rem);
+      line-height:.88;
+      color:#c30b2d;
+      text-shadow:0 0 28px rgba(195,11,45,.18);
+      opacity:0;
+      transform:translateY(10px);
+      animation:omenText .8s ease .7s forwards;
+    }
+
+    .omen-sub{
+      margin-top:18px;
+      color:#d6c7b3;
+      font-style:italic;
+      font-size:clamp(1rem,3vw,1.28rem);
+      opacity:0;
+      animation:omenText .75s ease 1.15s forwards;
+    }
+
+    @keyframes omenText{
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    /* ---------- LETTER ---------- */
+    .stage{
+      position:relative;
+      z-index:4;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .stage.revealed{
+      opacity:1;
+      pointer-events:auto;
+    }
+
     .letter{
+      width:min(900px,100%);
+      position:relative;
+      overflow:hidden;
+      padding:clamp(52px,7vw,84px) clamp(25px,7vw,78px) 68px;
+      border:1px solid rgba(154,123,72,.29);
+      background:
+        radial-gradient(circle at 50% -8%,rgba(150,0,22,.09),transparent 27%),
+        linear-gradient(180deg,rgba(255,255,255,.012),transparent 23%),
+        #070707;
+      box-shadow:
+        0 48px 130px rgba(0,0,0,.9),
+        inset 0 0 135px rgba(0,0,0,.62),
+        0 0 0 7px rgba(100,0,14,.03);
       transform-origin:top center;
     }
 
@@ -748,52 +362,132 @@
       }
     }
 
-    /* stagger main blocks when revealed */
-    .stage.revealed .intro,
-    .stage.revealed .date,
-    .stage.revealed .castle,
-    .stage.revealed .timeline,
-    .stage.revealed .game-copy,
-    .stage.revealed .details-block,
-    .stage.revealed .drinks,
-    .stage.revealed .role-button,
-    .stage.revealed .checkout,
-    .stage.revealed .ending{
+    .letter::before{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border:1px solid rgba(145,0,24,.19);
+      pointer-events:none;
+    }
+
+    .letter::after{
+      content:"✠";
+      position:absolute;
+      right:18px;
+      top:8px;
+      font-family:"Grenze Gotisch",serif;
+      font-size:9rem;
+      color:rgba(190,0,30,.038);
+      transform:rotate(8deg);
+      pointer-events:none;
+    }
+
+    .reveal{
       opacity:0;
-      transform:translateY(12px);
-      animation:sectionRise .7s ease forwards;
+      transform:translateY(18px);
+      transition:opacity .85s ease,transform .85s ease;
     }
 
-    .stage.revealed .intro{animation-delay:1.00s}
-    .stage.revealed .date{animation-delay:1.10s}
-    .stage.revealed .castle{animation-delay:1.18s}
-    .stage.revealed .timeline{animation-delay:1.28s}
-    .stage.revealed .game-copy:nth-of-type(2){animation-delay:1.42s}
-    .stage.revealed .details-block{animation-delay:1.52s}
-    .stage.revealed .drinks{animation-delay:1.62s}
-    .stage.revealed .game-copy:nth-of-type(4){animation-delay:1.72s}
-    .stage.revealed .role-button{animation-delay:1.82s}
-    .stage.revealed .checkout{animation-delay:1.90s}
-    .stage.revealed .ending{animation-delay:2.02s}
-
-    @keyframes sectionRise{
-      to{opacity:1; transform:translateY(0)}
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
     }
 
-    .moment{
-      transition:transform .25s ease, border-color .25s ease, background .25s ease;
+    .summoned{
+      text-align:center;
+      color:#9f8e77;
+      font-size:1.22rem;
+      font-style:italic;
+      letter-spacing:.055em;
     }
 
-    .moment:hover{
-      transform:translateY(-3px);
-      border-color:rgba(194,11,43,.66);
-      background:rgba(125,0,20,.065);
+    h1{
+      margin:8px 0 0;
+      text-align:center;
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(4.8rem,12vw,9rem);
+      line-height:.78;
+      color:var(--red);
+      text-shadow:0 0 12px rgba(195,11,45,.20),0 0 38px rgba(121,0,19,.14);
     }
 
-    .map,
-    .role-button{
+    .birthday{
+      text-align:center;
+      margin:28px 0 8px;
+      font-size:clamp(2rem,4.5vw,3.1rem);
+      color:#f1e4d2;
+      font-style:italic;
+    }
+
+    .intro{
+      max-width:650px;
+      margin:0 auto;
+      text-align:center;
+      color:#cabba7;
+      font-size:1.24rem;
+      line-height:1.76;
+      font-style:italic;
+    }
+
+    .rule{
+      width:min(590px,88%);
+      height:1px;
+      margin:34px auto;
+      background:linear-gradient(90deg,transparent,rgba(154,123,72,.75),transparent);
+    }
+
+    .chapter{
+      text-align:center;
+      margin-bottom:16px;
+    }
+
+    .chapter-kicker{
+      color:#937446;
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.73rem;
+      margin-bottom:5px;
+    }
+
+    .chapter-title{
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(2rem,5vw,3rem);
+      color:#d40e35;
+      margin:0;
+      line-height:1;
+    }
+
+    .date{
+      text-align:center;
+      color:#f0e3d0;
+      font-size:1.42rem;
+      margin-bottom:8px;
+    }
+
+    .castle{
+      text-align:center;
+      font-size:1.19rem;
+      color:#cabba7;
+      line-height:1.58;
+    }
+
+    .map{
+      display:inline-block;
       position:relative;
       overflow:hidden;
+      margin-top:11px;
+      padding:10px 18px 9px;
+      border:1px solid rgba(154,124,75,.43);
+      color:#c9aa75;
+      text-decoration:none;
+      letter-spacing:.035em;
+      background:rgba(154,124,75,.035);
+      transition:.22s ease;
+    }
+
+    .map:hover{
+      border-color:rgba(195,11,45,.62);
+      background:rgba(130,0,20,.065);
     }
 
     .map::before,
@@ -806,80 +500,309 @@
       left:-90px;
       background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
       transform:skewX(-16deg);
-      animation:buttonSweep 5s ease-in-out infinite;
+      animation:sweep 5s ease-in-out infinite;
     }
 
-    @keyframes buttonSweep{
+    @keyframes sweep{
       0%,64%{left:-90px}
       82%,100%{left:125%}
     }
 
-    /* stronger ending */
-    .ending{
+    .timeline{
+      max-width:660px;
+      margin:30px auto 0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .moment{
+      padding:23px 18px;
+      text-align:center;
+      border:1px solid rgba(127,0,20,.42);
+      background:rgba(120,0,17,.032);
+      transition:.25s ease;
+    }
+
+    .moment:hover{
+      transform:translateY(-3px);
+      border-color:rgba(195,11,45,.65);
+      background:rgba(125,0,20,.065);
+    }
+
+    .label{
+      color:#93774c;
+      text-transform:uppercase;
+      letter-spacing:.17em;
+      font-size:.73rem;
+      margin-bottom:8px;
+    }
+
+    .time{
+      display:block;
+      font-family:"Grenze Gotisch",serif;
+      font-size:1.82rem;
+      color:var(--red);
+      line-height:1;
+      margin-bottom:7px;
+    }
+
+    .moment-copy{
+      color:#d8cbb8;
+      font-size:1.07rem;
+      line-height:1.54;
+      font-style:italic;
+    }
+
+    .prose{
+      max-width:680px;
+      margin:0 auto;
+      text-align:center;
+      color:#d8c9b5;
+      font-size:1.18rem;
+      line-height:1.78;
+      font-style:italic;
+    }
+
+    .prose strong{
+      color:#ef2948;
+      font-weight:400;
+    }
+
+    .omen-grid{
+      max-width:720px;
+      margin:26px auto 0;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .omen-card{
+      min-height:150px;
+      padding:22px 18px;
+      border:1px solid rgba(130,0,21,.37);
+      background:
+        radial-gradient(circle at 50% 0%,rgba(150,0,25,.07),transparent 60%),
+        rgba(255,255,255,.006);
+      text-align:center;
+      transition:.25s ease;
+    }
+
+    .omen-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(195,11,45,.62);
+    }
+
+    .omen-symbol{
+      font-family:"Grenze Gotisch",serif;
+      color:#c30b2d;
+      font-size:2.1rem;
+      line-height:1;
+      margin-bottom:8px;
+    }
+
+    .omen-name{
+      color:#eadbc5;
+      font-size:1.18rem;
+      margin-bottom:6px;
+    }
+
+    .omen-desc{
+      color:#aa9983;
+      font-style:italic;
+      line-height:1.5;
+      font-size:.98rem;
+    }
+
+    .house-rules{
+      max-width:680px;
+      margin:25px auto 0;
+      counter-reset:rule;
+    }
+
+    .house-rule{
+      counter-increment:rule;
+      display:grid;
+      grid-template-columns:44px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:15px 0;
+      border-bottom:1px solid rgba(154,123,72,.16);
+    }
+
+    .house-rule::before{
+      content:counter(rule, decimal-leading-zero);
+      font-family:"Grenze Gotisch",serif;
+      color:#a50a27;
+      font-size:1.42rem;
+      text-align:center;
+    }
+
+    .house-rule p{
+      margin:0;
+      color:#c9baa6;
+      font-size:1.08rem;
+      line-height:1.58;
+      font-style:italic;
+    }
+
+    .house-rule strong{
+      color:#ece0ce;
+      font-weight:400;
+    }
+
+    .detail-box{
+      max-width:630px;
+      margin:24px auto 0;
+      padding:24px 22px;
+      text-align:center;
+      border-top:1px solid rgba(127,0,20,.43);
+      border-bottom:1px solid rgba(127,0,20,.43);
+      background:rgba(127,0,20,.02);
+    }
+
+    .detail-box .big{
+      font-family:"Grenze Gotisch",serif;
+      color:#cf0c31;
+      font-size:1.7rem;
+      margin-bottom:7px;
+    }
+
+    .detail-box p{
+      margin:0;
+      color:#d4c5b1;
+      line-height:1.68;
+      font-size:1.12rem;
+      font-style:italic;
+    }
+
+    .role-wrap{
+      text-align:center;
+    }
+
+    .role-button{
       position:relative;
       overflow:hidden;
-      padding-bottom:8px;
+      margin:18px auto 0;
+      padding:13px 22px 12px;
+      border:1px solid rgba(195,11,45,.62);
+      background:rgba(127,0,20,.05);
+      color:#eadbc5;
+      font-family:"IM Fell English",serif;
+      font-size:1.08rem;
+      font-style:italic;
+      cursor:pointer;
+    }
+
+    .role-answer{
+      min-height:32px;
+      margin-top:13px;
+      text-align:center;
+      color:#d6c3aa;
+      font-style:italic;
+      opacity:0;
+      transform:translateY(5px);
+      transition:.38s ease;
+    }
+
+    .role-answer.show{opacity:1;transform:translateY(0)}
+
+    .warning{
+      max-width:610px;
+      margin:30px auto 0;
+      text-align:center;
+      color:#8f7e69;
+      font-size:.98rem;
+      line-height:1.6;
+      font-style:italic;
+    }
+
+    .ending{
+      position:relative;
+      margin-top:42px;
+      padding:36px 0 7px;
+      border-top:1px solid rgba(154,123,72,.31);
+      text-align:center;
+      overflow:hidden;
     }
 
     .ending::before{
       content:"";
       position:absolute;
-      width:260px;
-      height:260px;
+      width:300px;
+      height:300px;
       border-radius:50%;
       left:50%;
-      bottom:-190px;
+      bottom:-225px;
       transform:translateX(-50%);
-      background:radial-gradient(circle,rgba(170,0,28,.16),transparent 67%);
+      background:radial-gradient(circle,rgba(170,0,28,.18),transparent 67%);
       animation:endGlow 3.2s ease-in-out infinite alternate;
     }
 
     @keyframes endGlow{
-      from{opacity:.36; transform:translateX(-50%) scale(.88)}
-      to{opacity:.80; transform:translateX(-50%) scale(1.07)}
+      from{opacity:.36;transform:translateX(-50%) scale(.88)}
+      to{opacity:.82;transform:translateX(-50%) scale(1.08)}
+    }
+
+    .ending-date{
+      position:relative;
+      z-index:2;
+      color:#ad997c;
+      letter-spacing:.17em;
+      font-size:.78rem;
+      text-transform:uppercase;
     }
 
     .ending-title{
       position:relative;
       z-index:2;
-      text-shadow:0 0 22px rgba(194,11,43,.14);
+      margin-top:8px;
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(2.5rem,7vw,4rem);
+      color:#c30b2d;
+      text-shadow:0 0 25px rgba(195,11,45,.15);
     }
 
-    /* Red signature */
+    .fingerprint{
+      position:relative;
+      z-index:2;
+      width:64px;
+      height:78px;
+      margin:22px auto 0;
+      opacity:.24;
+      border-radius:50%;
+      background:
+        repeating-radial-gradient(ellipse at center,
+          transparent 0 3px,
+          rgba(195,11,45,.85) 3px 4px,
+          transparent 4px 7px);
+      transform:rotate(-8deg) scaleX(.72);
+    }
+
     .signature-wrap{
       position:relative;
       z-index:2;
-      margin-top:22px;
+      margin-top:23px;
       text-align:center;
     }
 
     .signature-label{
-      color:#857663;
-      font-size:.80rem;
-      letter-spacing:.12em;
+      color:#82725e;
       text-transform:uppercase;
-      margin-bottom:-2px;
+      letter-spacing:.13em;
+      font-size:.76rem;
+      margin-bottom:-5px;
     }
 
     .signature{
       display:inline-block;
-      font-family:"Italianno", cursive;
-      font-size:3.4rem;
-      line-height:1;
-      color:#c60e2e;
-      text-shadow:0 0 14px rgba(198,14,46,.16);
-      transform:rotate(-4deg);
       position:relative;
-      opacity:0;
-    }
-
-    .stage.revealed .signature{
-      animation:signIn 1.05s ease 2.35s forwards;
-    }
-
-    @keyframes signIn{
-      from{opacity:0; transform:rotate(-4deg) translateY(7px) scale(.97)}
-      to{opacity:1; transform:rotate(-4deg) translateY(0) scale(1)}
+      font-family:"Italianno",cursive;
+      font-size:3.7rem;
+      line-height:1;
+      color:#c80e30;
+      text-shadow:0 0 16px rgba(200,14,48,.16);
+      transform:rotate(-4deg);
     }
 
     .signature::after{
@@ -889,53 +812,44 @@
       right:0;
       bottom:-5px;
       height:2px;
-      background:linear-gradient(90deg,#9d001c,rgba(198,14,46,.55),transparent);
+      background:linear-gradient(90deg,#a0001d,rgba(200,14,48,.5),transparent);
       transform:scaleX(0);
       transform-origin:left;
+      animation:signatureStroke 1.2s ease 1s forwards;
     }
 
-    .stage.revealed .signature::after{
-      animation:signatureStroke .85s ease 2.78s forwards;
-    }
+    @keyframes signatureStroke{to{transform:scaleX(1)}}
 
-    @keyframes signatureStroke{
-      to{transform:scaleX(1)}
-    }
-
-    .seal-stamp-small{
-      width:44px;
-      height:44px;
+    .mini-seal{
+      width:46px;
+      height:46px;
+      margin:15px auto 0;
       border-radius:50%;
-      margin:14px auto 0;
       display:grid;
       place-items:center;
       border:1px solid rgba(169,0,28,.62);
-      color:#9f001c;
+      color:#a70020;
       font-family:"Grenze Gotisch",serif;
-      font-size:1.4rem;
-      opacity:0;
-      transform:scale(1.5) rotate(-8deg);
+      font-size:1.45rem;
+      transform:rotate(-8deg);
+      opacity:.62;
     }
 
-    .stage.revealed .seal-stamp-small{
-      animation:stampDown .52s cubic-bezier(.17,.88,.3,1.3) 3.05s forwards;
+    .checkout{
+      margin-top:27px;
+      text-align:center;
+      color:#9c8b75;
+      font-size:1.03rem;
     }
-
-    @keyframes stampDown{
-      0%{opacity:0; transform:scale(1.5) rotate(-8deg)}
-      70%{opacity:.72; transform:scale(.94) rotate(-8deg)}
-      100%{opacity:.62; transform:scale(1) rotate(-8deg)}
-    }
-
 
     @media(max-width:650px){
       .stage{padding:10px}
-      .letter{padding-top:52px}
-      .timeline{grid-template-columns:1fr}
-      .seal{width:188px;height:188px}
-      .seal::after{width:207px;height:207px}
-      .seal-svg{width:158px;height:158px}
-      .portrait-wrap{height:76vh}
+      .letter{padding-top:54px}
+      .timeline,.omen-grid{grid-template-columns:1fr}
+      .seal{width:194px;height:194px}
+      .seal::after{width:214px;height:214px}
+      .seal-svg{width:161px;height:161px}
+      .house-rule{grid-template-columns:36px 1fr;gap:10px}
     }
 
     @media(prefers-reduced-motion:reduce){
@@ -949,12 +863,12 @@
 </head>
 
 <body>
+
   <div class="ambient"></div>
   <div class="vignette"></div>
-  <div class="red-orbit"></div>
-  <div class="ash" aria-hidden="true" id="ash"></div>
+  <div class="embers" id="embers" aria-hidden="true"></div>
 
-  <!-- First screen: just the seal -->
+  <!-- FIRST SCREEN: ONLY THE SEAL -->
   <section class="opening" id="opening">
     <button class="seal" id="sealButton" aria-label="Open Kshipra's Summons">
       <svg class="seal-svg" viewBox="0 0 120 120" aria-hidden="true">
@@ -979,113 +893,268 @@
     </button>
   </section>
 
-  <!-- Cinematic portrait flash -->
-  <section class="portrait-stage" id="portraitStage" aria-hidden="true">
-    <div class="portrait-wrap">
-      <img src="assets/kshipra-traitor.png" alt="Kshipra as the host of The Traitors">
-      <div class="portrait-caption">The Host Awaits.</div>
+  <!-- NO PHOTO. SHORT CINEMATIC TEXT SEQUENCE. -->
+  <section class="omen" id="omen" aria-hidden="true">
+    <div class="omen-copy">
+      <div class="omen-small">On the night of 26 September</div>
+      <div class="omen-main">Trust No One.</div>
+      <div class="omen-sub">A game of loyalty, deception and very questionable friendship begins.</div>
     </div>
   </section>
 
-  <!-- Invitation -->
   <main class="stage" id="stage" aria-hidden="true">
     <article class="letter">
 
-      <div class="summoned">You have been summoned.</div>
+      <header class="reveal">
+        <div class="summoned">You have been summoned.</div>
+        <h1>The Traitors</h1>
+        <div class="birthday">Kshipra turns 29</div>
 
-      <h1>The Traitors</h1>
+        <p class="intro">
+          One villa. One night. A room full of people who claim to be your friends.
+          Some of them will be telling the truth.
+        </p>
+      </header>
 
-      <div class="birthday">Kshipra turns 29</div>
+      <div class="rule reveal"></div>
 
-      <p class="intro">
-        For one night, friendships will be tested, alliances will be made,
-        and somebody in the room will be lying.
-      </p>
-
-      <div class="rule"></div>
-
-      <div class="date">26–27 September 2026</div>
-
-      <div class="castle">
-        StayVista Dazzle Villa · Karjat<br>
-        <a class="map"
-           href="https://www.google.com/maps/search/?api=1&query=StayVista%20Dazzle%20Villa%20Karjat"
-           target="_blank" rel="noopener">
-          Enter the Castle
-        </a>
-      </div>
-
-      <section class="timeline">
-        <div class="moment">
-          <div class="label">Your arrival</div>
-          <span class="time">2:00 PM</span>
-          <div class="moment-copy">
-            Be at the villa from 2 PM.<br>
-            Settle in. Pour a drink. Choose your allies carefully.
-          </div>
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">The Summons</div>
+          <h2 class="chapter-title">Report to the Castle</h2>
         </div>
 
-        <div class="moment">
-          <div class="label">The game begins</div>
-          <span class="time">5:00 PM</span>
-          <div class="moment-copy">
-            Roles are revealed.<br>
-            From this point onward, trust becomes expensive.
+        <div class="date">26–27 September 2026</div>
+
+        <div class="castle">
+          StayVista Dazzle Villa · Karjat<br>
+          <a class="map"
+             href="https://www.google.com/maps/search/?api=1&query=StayVista%20Dazzle%20Villa%20Karjat"
+             target="_blank" rel="noopener">
+            Enter the Castle
+          </a>
+        </div>
+
+        <div class="timeline">
+          <div class="moment">
+            <div class="label">Your arrival</div>
+            <span class="time">2:00 PM</span>
+            <div class="moment-copy">
+              Arrive from 2 PM onwards.<br>
+              Claim your room. Pour a drink. Observe the competition.
+            </div>
+          </div>
+
+          <div class="moment">
+            <div class="label">The game begins</div>
+            <span class="time">5:00 PM</span>
+            <div class="moment-copy">
+              At 5 PM, the game begins.<br>
+              Roles are drawn and innocence becomes difficult to prove.
+            </div>
           </div>
         </div>
       </section>
 
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
 
-      <p class="game-copy">
-        Among you will walk <strong>Traitors.</strong><br>
-        There will be Shields. Secret powers. Murder. Banishment.<br>
-        And at the Circle, every accusation will have consequences.
-      </p>
-
-      <div class="details-block">
-        <div class="details-title">Dress Code</div>
-        <div class="details-copy">
-          Elevated casuals.<br>
-          Polished enough for the game. Relaxed enough for the villa.
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">The Premise</div>
+          <h2 class="chapter-title">Somebody Is Lying</h2>
         </div>
-      </div>
 
-      <p class="drinks">
-        Two bottles of tequila will be waiting.<br>
-        If there is something specific you would rather drink,
-        bring your bottle of choice.
-      </p>
+        <p class="prose">
+          Hidden among the group will be <strong>Traitors</strong>.
+          Everyone else begins as an Innocent. The Traitors know who they are.
+          The Innocents do not. Your job is simple in theory:
+          find them before they remove you from the game.
+        </p>
 
-      <div class="rule"></div>
+        <p class="prose" style="margin-top:18px">
+          Your friendships, poker faces and ability to defend extremely suspicious behaviour
+          will all be tested. Alliances are encouraged. Certainty is not.
+        </p>
+      </section>
 
-      <p class="game-copy">
-        Your role will be known only after you enter the game.<br>
-        <strong>Innocent or Traitor?</strong><br>
-        Only the hosts shall know.
-      </p>
+      <div class="rule reveal"></div>
 
-      <button class="role-button" id="roleButton" type="button">
-        Your role awaits.
-      </button>
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">What awaits</div>
+          <h2 class="chapter-title">The Game Has Teeth</h2>
+        </div>
 
-      <div class="role-answer" id="roleAnswer">
-        Your identity will be revealed at 5:00 PM.
-      </div>
+        <div class="omen-grid">
+          <div class="omen-card">
+            <div class="omen-symbol">♢</div>
+            <div class="omen-name">Shields</div>
+            <div class="omen-desc">
+              Protection exists. Finding it is another matter.
+            </div>
+          </div>
 
-      <div class="checkout">
-        Checkout · 11:00 AM on 27 September
-      </div>
+          <div class="omen-card">
+            <div class="omen-symbol">†</div>
+            <div class="omen-name">Murder</div>
+            <div class="omen-desc">
+              Traitors will choose who disappears from the game.
+            </div>
+          </div>
 
-      <div class="ending">
-        <div class="ending-date">26 September · 2:00 PM</div>
+          <div class="omen-card">
+            <div class="omen-symbol">✦</div>
+            <div class="omen-name">Secret Powers</div>
+            <div class="omen-desc">
+              Winning the right game may buy you an advantage.
+            </div>
+          </div>
+
+          <div class="omen-card">
+            <div class="omen-symbol">◉</div>
+            <div class="omen-name">The Circle</div>
+            <div class="omen-desc">
+              Accuse carefully. Someone will be banished.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">House Rules</div>
+          <h2 class="chapter-title">Read Before You Enter</h2>
+        </div>
+
+        <div class="house-rules">
+          <div class="house-rule">
+            <p><strong>Your role is yours alone.</strong> Once drawn, do not show it to anyone.</p>
+          </div>
+
+          <div class="house-rule">
+            <p><strong>Trust is a strategy, not a requirement.</strong> Lie, accuse, defend and investigate as needed.</p>
+          </div>
+
+          <div class="house-rule">
+            <p><strong>Dead players tell no tales.</strong> Once removed from the game, you may enjoy the party but not influence the living.</p>
+          </div>
+
+          <div class="house-rule">
+            <p><strong>Nothing is accidental.</strong> A strange note, missing photograph or suspicious object may mean more than it appears.</p>
+          </div>
+
+          <div class="house-rule">
+            <p><strong>At the Circle, speak.</strong> Every vote should come with a name, a reason and ideally some unnecessary drama.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">The Evening</div>
+          <h2 class="chapter-title">Expect the Unexpected</h2>
+        </div>
+
+        <p class="prose">
+          The evening will move through games, accusations, private missions,
+          secret decisions and the occasional very public betrayal.
+          Some victories will protect you. Some will place a target on your back.
+          Not every threat will announce itself.
+        </p>
+
+        <p class="prose" style="margin-top:18px">
+          There may be hidden Shields somewhere inside the villa.
+          There may be powers worth fighting for.
+          There will definitely be people confidently accusing the wrong person.
+        </p>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">Appearances Matter</div>
+          <h2 class="chapter-title">Dress Accordingly</h2>
+        </div>
+
+        <div class="detail-box">
+          <div class="big">Elevated Casuals</div>
+          <p>
+            Think villa party, but sharper.<br>
+            Polished enough to look guilty. Comfortable enough to survive the night.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">For Courage</div>
+          <h2 class="chapter-title">A Note on Drinks</h2>
+        </div>
+
+        <div class="detail-box">
+          <p>
+            Two bottles of tequila will be waiting at the villa.
+            If your loyalties lie elsewhere, bring whatever specific bottle you would rather drink.
+          </p>
+        </div>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal role-wrap">
+        <div class="chapter">
+          <div class="chapter-kicker">One final matter</div>
+          <h2 class="chapter-title">Innocent or Traitor?</h2>
+        </div>
+
+        <p class="prose">
+          Your identity will remain unknown until the game begins.
+          Only the hosts will know who can be trusted.
+        </p>
+
+        <button class="role-button" id="roleButton" type="button">
+          Your role awaits.
+        </button>
+
+        <div class="role-answer" id="roleAnswer">
+          Your identity will be revealed at 5:00 PM.
+        </div>
+
+        <p class="warning">
+          Consider this your only warning: arriving innocent does not guarantee leaving that way.
+        </p>
+      </section>
+
+      <div class="rule reveal"></div>
+
+      <section class="reveal">
+        <div class="chapter">
+          <div class="chapter-kicker">The Morning After</div>
+          <h2 class="chapter-title">For Those Who Survive</h2>
+        </div>
+
+        <p class="prose">
+          Checkout is at <strong>11:00 AM on 27 September.</strong><br>
+          Reputations, accusations and regrettable voting decisions may take longer to recover.
+        </p>
+      </section>
+
+      <div class="ending reveal">
+        <div class="ending-date">26 September · Arrive from 2:00 PM · Game at 5:00 PM</div>
         <div class="ending-title">The Castle Awaits.</div>
         <div class="fingerprint" aria-hidden="true"></div>
 
         <div class="signature-wrap">
           <div class="signature-label">By order of</div>
           <div class="signature">Kshipra Desai</div>
-          <div class="seal-stamp-small">K</div>
+          <div class="mini-seal">K</div>
         </div>
       </div>
 
@@ -1095,12 +1164,25 @@
   <script>
     const sealButton = document.getElementById("sealButton");
     const opening = document.getElementById("opening");
-    const portraitStage = document.getElementById("portraitStage");
+    const omen = document.getElementById("omen");
     const stage = document.getElementById("stage");
     const roleButton = document.getElementById("roleButton");
     const roleAnswer = document.getElementById("roleAnswer");
-
     let opened = false;
+
+    function revealVisibleSections(){
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold:.12});
+
+      reveals.forEach(el => observer.observe(el));
+    }
 
     function openInvite(){
       if(opened) return;
@@ -1108,23 +1190,22 @@
 
       sealButton.classList.add("breaking");
 
-      setTimeout(() => {
-        opening.classList.add("dismissed");
-      }, 390);
+      setTimeout(() => opening.classList.add("dismissed"), 420);
 
       setTimeout(() => {
         opening.style.display = "none";
-        portraitStage.classList.add("show");
-        portraitStage.setAttribute("aria-hidden","false");
-      }, 860);
+        omen.classList.add("show");
+        omen.setAttribute("aria-hidden","false");
+      }, 900);
 
       setTimeout(() => {
-        portraitStage.style.display = "none";
-        portraitStage.setAttribute("aria-hidden","true");
+        omen.style.display = "none";
+        omen.setAttribute("aria-hidden","true");
         stage.classList.add("revealed");
         stage.setAttribute("aria-hidden","false");
         window.scrollTo({top:0,behavior:"smooth"});
-      }, 3140);
+        revealVisibleSections();
+      }, 3900);
     }
 
     sealButton.addEventListener("click", openInvite);
@@ -1134,22 +1215,20 @@
       roleButton.textContent = "Trust no one.";
     });
 
+    // Floating particles
+    const embers = document.getElementById("embers");
+    const count = window.innerWidth < 650 ? 20 : 34;
 
-    // Floating ash / dust particles
-    const ash = document.getElementById("ash");
-    const particleCount = window.innerWidth < 650 ? 18 : 30;
-
-    for(let i = 0; i < particleCount; i++){
+    for(let i=0;i<count;i++){
       const p = document.createElement("i");
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.top = (-10 - Math.random() * 95) + "vh";
-      p.style.animationDuration = (8 + Math.random() * 10) + "s";
-      p.style.animationDelay = (-Math.random() * 14) + "s";
-      p.style.opacity = (0.18 + Math.random() * 0.35).toFixed(2);
-      p.style.transform = `scale(${0.6 + Math.random() * 1.5})`;
-      ash.appendChild(p);
+      p.style.left = Math.random()*100 + "vw";
+      p.style.top = (-10-Math.random()*95) + "vh";
+      p.style.animationDuration = (8+Math.random()*11) + "s";
+      p.style.animationDelay = (-Math.random()*15) + "s";
+      p.style.opacity = (0.15+Math.random()*.35).toFixed(2);
+      embers.appendChild(p);
     }
-
   </script>
+
 </body>
 </html>
