@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#030303" />
+  <title>You Have Been Summoned — Kshipra's 29th</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@500;600;700;800&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --black:#030303;
+      --paper:#080808;
+      --ivory:#e8dcc8;
+      --muted:#a99b88;
+      --blood:#8d0018;
+      --red:#c40c2e;
+      --gold:#90754a;
+    }
+
+    *{box-sizing:border-box}
+    html,body{min-height:100%}
+
+    body{
+      margin:0;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 50% 8%, rgba(141,0,24,.17), transparent 25%),
+        radial-gradient(circle at 50% 100%, rgba(141,0,24,.10), transparent 28%),
+        #020202;
+      color:var(--ivory);
+      font-family:"IM Fell English",Georgia,serif;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.13;
+      z-index:99;
+      background-image:
+        repeating-radial-gradient(circle at 0 0, rgba(255,255,255,.055) 0 1px, transparent 1px 3px);
+      mix-blend-mode:soft-light;
+    }
+
+    .page{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:20px;
+    }
+
+    .summons{
+      width:min(760px,100%);
+      transition:.7s ease;
+    }
+
+    .summons.hide{
+      opacity:0;
+      transform:translateY(-20px) scale(.98);
+      filter:blur(5px);
+      pointer-events:none;
+    }
+
+    .envelope{
+      min-height:470px;
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+      border:1px solid #1b1b1b;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.015),transparent 30%),
+        linear-gradient(180deg,#0b0b0b,#050505);
+      box-shadow:
+        0 42px 110px rgba(0,0,0,.82),
+        inset 0 0 110px rgba(100,0,14,.05),
+        0 0 0 1px rgba(144,117,74,.12);
+    }
+
+    .envelope::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      clip-path:polygon(0 0,50% 54%,100% 0);
+      background:linear-gradient(180deg,#111,#070707);
+      border-bottom:1px solid #181818;
+    }
+
+    .seal-area{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      transform:translateY(28px);
+    }
+
+    .opening-line{
+      margin-bottom:28px;
+      color:#9d8d79;
+      font-size:1.2rem;
+      font-style:italic;
+      letter-spacing:.04em;
+    }
+
+    .seal{
+      width:126px;
+      height:126px;
+      border:0;
+      border-radius:50%;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      position:relative;
+      background:
+        radial-gradient(circle at 33% 27%,#dc2a48 0 5%,transparent 6%),
+        radial-gradient(circle,#bd0a2b 0 47%,#8d0018 48% 64%,#5a000f 65% 100%);
+      box-shadow:
+        0 14px 28px rgba(0,0,0,.7),
+        inset 0 0 0 4px rgba(255,80,100,.10),
+        inset 0 -13px 19px rgba(50,0,9,.36),
+        0 0 34px rgba(170,0,30,.12);
+      transition:.25s ease;
+    }
+
+    .seal:hover{transform:scale(1.035)}
+    .seal::after{
+      content:"";
+      position:absolute;
+      width:139px;
+      height:139px;
+      border-radius:49% 51% 48% 52%;
+      border:2px solid rgba(130,0,22,.58);
+      transform:rotate(8deg);
+    }
+
+    .seal-svg{
+      width:108px;
+      height:108px;
+      overflow:visible;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,.05));
+    }
+
+    .seal-ring{
+      fill:none;
+      stroke:rgba(48,0,9,.52);
+      stroke-width:2;
+    }
+
+    .seal-k{
+      fill:#3b000a;
+      font-family:"Grenze Gotisch",serif;
+      font-size:48px;
+      font-weight:800;
+      text-anchor:middle;
+      dominant-baseline:middle;
+    }
+
+    .seal-text{
+      fill:#3b000a;
+      font-family:"IM Fell English",serif;
+      font-size:10px;
+      font-style:italic;
+      letter-spacing:1.25px;
+      text-transform:uppercase;
+    }
+
+    .break-copy{
+      margin-top:20px;
+      color:#b5a48f;
+      font-size:1.05rem;
+      font-style:italic;
+    }
+
+    .breaking .seal{animation:crack .72s cubic-bezier(.2,.8,.3,1) forwards}
+    @keyframes crack{
+      0%{transform:scale(1);opacity:1}
+      35%{transform:scale(1.08) rotate(-4deg)}
+      65%{transform:scale(.95) rotate(6deg)}
+      100%{transform:scale(1.45) rotate(-12deg);opacity:0;filter:blur(2px)}
+    }
+
+    .letter-stage{
+      display:none;
+      width:min(860px,100%);
+      opacity:0;
+      transform:translateY(30px);
+    }
+
+    .letter-stage.show{
+      display:block;
+      animation:reveal .95s cubic-bezier(.2,.78,.2,1) forwards;
+    }
+
+    @keyframes reveal{
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .letter{
+      position:relative;
+      overflow:hidden;
+      padding:clamp(44px,7vw,76px) clamp(24px,7vw,72px) 52px;
+      border:1px solid rgba(145,117,74,.31);
+      background:
+        radial-gradient(circle at 50% -8%,rgba(160,0,25,.08),transparent 26%),
+        linear-gradient(180deg,rgba(255,255,255,.012),transparent 20%),
+        #070707;
+      box-shadow:
+        0 42px 120px rgba(0,0,0,.85),
+        inset 0 0 120px rgba(0,0,0,.58),
+        0 0 0 7px rgba(100,0,15,.035);
+    }
+
+    .letter::before{
+      content:"";
+      position:absolute;
+      inset:17px;
+      border:1px solid rgba(145,0,24,.20);
+      pointer-events:none;
+    }
+
+    .letter::after{
+      content:"✠";
+      position:absolute;
+      right:24px;
+      top:14px;
+      font-family:"Grenze Gotisch",serif;
+      font-size:8rem;
+      color:rgba(185,0,30,.045);
+      transform:rotate(8deg);
+    }
+
+    .kicker{
+      text-align:center;
+      color:var(--muted);
+      font-size:1.16rem;
+      font-style:italic;
+      letter-spacing:.05em;
+    }
+
+    h1{
+      margin:7px 0 0;
+      text-align:center;
+      font-family:"Grenze Gotisch",serif;
+      font-size:clamp(4.5rem,12vw,8.7rem);
+      line-height:.78;
+      color:var(--red);
+      text-shadow:0 0 12px rgba(196,12,46,.21),0 0 36px rgba(141,0,24,.14);
+    }
+
+    .birthday{
+      text-align:center;
+      margin:26px 0 6px;
+      font-size:clamp(2rem,4vw,2.9rem);
+      font-style:italic;
+      color:#efe2d0;
+    }
+
+    .sub{
+      max-width:600px;
+      margin:0 auto;
+      text-align:center;
+      color:#c9baa6;
+      font-size:1.22rem;
+      line-height:1.7;
+      font-style:italic;
+    }
+
+    .rule{
+      width:min(560px,86%);
+      height:1px;
+      margin:30px auto;
+      background:linear-gradient(90deg,transparent,rgba(144,117,74,.75),transparent);
+    }
+
+    .grid{
+      max-width:660px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .card{
+      padding:22px 18px;
+      border:1px solid rgba(141,0,24,.40);
+      background:rgba(120,0,18,.035);
+      text-align:center;
+    }
+
+    .label{
+      margin-bottom:7px;
+      color:#92764c;
+      font-size:.76rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .value{
+      color:#e8dcc9;
+      font-size:1.32rem;
+      line-height:1.42;
+    }
+
+    .accent{
+      display:block;
+      margin-top:5px;
+      color:var(--red);
+      font-family:"Grenze Gotisch",serif;
+      font-size:1.52rem;
+    }
+
+    .location{
+      max-width:660px;
+      margin:12px auto 0;
+      padding:18px;
+      text-align:center;
+      border:1px solid rgba(141,0,24,.30);
+      color:#d8cab5;
+      font-size:1.15rem;
+      line-height:1.5;
+    }
+
+    .map-link{
+      display:inline-block;
+      margin-top:8px;
+      color:#c9a970;
+      text-decoration:none;
+      border-bottom:1px solid rgba(201,169,112,.45);
+    }
+
+    .map-link:hover{color:#ead3a4}
+
+    .decree{
+      max-width:650px;
+      margin:0 auto;
+      text-align:center;
+      color:#ddd0bd;
+      font-size:1.26rem;
+      line-height:1.74;
+      font-style:italic;
+    }
+
+    .decree strong{color:#ef2747;font-weight:400}
+
+    .dress{
+      max-width:580px;
+      margin:26px auto 0;
+      padding:20px 18px;
+      text-align:center;
+      border-top:1px solid rgba(141,0,24,.43);
+      border-bottom:1px solid rgba(141,0,24,.43);
+    }
+
+    .dress-title{
+      font-family:"Grenze Gotisch",serif;
+      color:var(--red);
+      font-size:1.6rem;
+      margin-bottom:5px;
+    }
+
+    .dress-copy{
+      font-size:1.18rem;
+      color:#d6c7b3;
+      font-style:italic;
+    }
+
+    .drink-note{
+      max-width:620px;
+      margin:28px auto 0;
+      text-align:center;
+      color:#c8baa5;
+      font-size:1.16rem;
+      line-height:1.65;
+      font-style:italic;
+    }
+
+    .checkout{
+      margin-top:27px;
+      text-align:center;
+      color:#a7957d;
+      font-size:1.02rem;
+    }
+
+    .byob{
+      margin-top:16px;
+      text-align:center;
+      font-family:"Grenze Gotisch",serif;
+      font-size:1.55rem;
+      color:#cab99c;
+    }
+
+    .sound{
+      display:none;
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:20;
+      padding:9px 12px;
+      border:1px solid rgba(150,0,25,.45);
+      background:rgba(5,5,5,.78);
+      color:#d8c9b3;
+      font:inherit;
+      cursor:pointer;
+      backdrop-filter:blur(10px);
+    }
+
+    .sound.show{display:block}
+
+    @media(max-width:650px){
+      .page{padding:11px}
+      .envelope{min-height:430px}
+      .grid{grid-template-columns:1fr}
+      .letter{padding-top:50px}
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="summons" id="summons">
+      <div class="envelope">
+        <div class="seal-area" id="sealArea">
+          <div class="opening-line">You have been summoned.</div>
+          <button class="seal" id="sealButton" aria-label="Break Kshipra's Summons seal">
+            <svg class="seal-svg" viewBox="0 0 120 120" aria-hidden="true">
+              <defs>
+                <path id="sealPath"
+                      d="M 60,60 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"/>
+              </defs>
+              <circle class="seal-ring" cx="60" cy="60" r="43"></circle>
+              <text class="seal-text">
+                <textPath href="#sealPath" startOffset="50%" text-anchor="middle">
+                  KSHIPRA'S SUMMONS
+                </textPath>
+              </text>
+              <text class="seal-k" x="60" y="61">K</text>
+            </svg>
+          </button>
+          <div class="break-copy">Break the seal.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="letter-stage" id="letterStage" aria-hidden="true">
+      <article class="letter">
+
+        <div class="kicker">You have been summoned.</div>
+
+        <h1>The Traitors</h1>
+
+        <div class="birthday">Kshipra turns 29</div>
+
+        <p class="sub">
+          A weekend of hidden loyalties, secret powers, murder,
+          banishment — and absolutely no reason to trust anyone.
+        </p>
+
+        <div class="rule"></div>
+
+        <section class="grid">
+          <div class="card">
+            <div class="label">The Summons</div>
+            <div class="value">
+              Saturday, 26 September
+              <span class="accent">Arrive from 2:00 PM</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="label">The Game Begins</div>
+            <div class="value">
+              Be inside the castle before
+              <span class="accent">5:00 PM</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="location">
+          <div class="label">The Castle</div>
+          <div class="value">StayVista Dazzle Villa · Karjat</div>
+          <a class="map-link"
+             href="https://www.google.com/maps/search/?api=1&query=StayVista%20Dazzle%20Villa%20Karjat"
+             target="_blank" rel="noopener">
+             Open villa location
+          </a>
+        </div>
+
+        <div class="rule"></div>
+
+        <p class="decree">
+          Among you will walk <strong>Traitors.</strong><br>
+          Some will lie. Some will betray. Some will be murdered.<br>
+          At the Circle, one of you will be banished.
+        </p>
+
+        <div class="dress">
+          <div class="dress-title">Dress Code</div>
+          <div class="dress-copy">
+            Elevated casuals.<br>
+            Come dressed for the game — polished, sharp, a little dangerous.
+          </div>
+        </div>
+
+        <p class="drink-note">
+          Two bottles of tequila will be waiting at the villa.<br>
+          If you want anything specific, bring your poison of choice.
+        </p>
+
+        <div class="rule"></div>
+
+        <p class="decree">
+          Your role will be revealed only after you enter.<br>
+          <strong>Innocent or Traitor?</strong><br>
+          Only the hosts shall know.
+        </p>
+
+        <div class="checkout">
+          26–27 September 2026 · Checkout at 11:00 AM
+        </div>
+
+        <div class="byob">BYOB</div>
+
+      </article>
+    </section>
+  </main>
+
+  <audio id="bgAudio" loop preload="auto">
+    <source src="assets/traitors-theme.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="sound" id="soundButton" type="button">Sound: on</button>
+
+  <script>
+    const sealButton = document.getElementById("sealButton");
+    const sealArea = document.getElementById("sealArea");
+    const summons = document.getElementById("summons");
+    const letterStage = document.getElementById("letterStage");
+    const bgAudio = document.getElementById("bgAudio");
+    const soundButton = document.getElementById("soundButton");
+
+    let opened = false;
+    let muted = false;
+    bgAudio.volume = 0.42;
+
+    async function startAudio(){
+      try{
+        await bgAudio.play();
+        soundButton.classList.add("show");
+      }catch(e){
+        console.info("Audio unavailable or blocked:", e);
+      }
+    }
+
+    function openInvite(){
+      if(opened) return;
+      opened = true;
+
+      sealArea.classList.add("breaking");
+      startAudio();
+
+      setTimeout(() => summons.classList.add("hide"), 390);
+
+      setTimeout(() => {
+        summons.style.display = "none";
+        letterStage.classList.add("show");
+        letterStage.setAttribute("aria-hidden","false");
+        window.scrollTo({top:0,behavior:"smooth"});
+      }, 920);
+    }
+
+    sealButton.addEventListener("click", openInvite);
+
+    soundButton.addEventListener("click", async () => {
+      muted = !muted;
+      bgAudio.muted = muted;
+      soundButton.textContent = muted ? "Sound: off" : "Sound: on";
+      if(!muted && bgAudio.paused){
+        try{ await bgAudio.play(); }catch(e){}
+      }
+    });
+  </script>
+</body>
+</html>
